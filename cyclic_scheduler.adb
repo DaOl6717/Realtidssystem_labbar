@@ -1,4 +1,5 @@
 with Ada.Text_IO; use Ada.Text_IO;
+With Ada.Calendar use Ada.Calendar;
 
 procedure cyclic_scheduler is
    procedure F1;
@@ -6,8 +7,9 @@ procedure cyclic_scheduler is
    procedure F3;
    
    procedure F1 is
+   now : Time;
    begin
-      -- Skriv vad den ska göra här
+      Put_Line("F1 executing, time is now: " & Duration'Image(now));
       null;
    end F1;
 
