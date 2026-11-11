@@ -1,20 +1,16 @@
-FILE ?= cyclic_scheduler
 
-.PHONY: all run
+FILE ?= cyclic_scheduler
+CMP_FLAGS ?= -gnat2022
+BUILD ?= build
+
+.PHONY: all run clean
 
 all:
-	gnatmake $(FILE).adb
-	gcc -c $(FILE).adb
-	gnatbind -x $(FILE).ali
-	gnatlink $(FILE).ali
-	
-	gnatmake $(FILE).adb
+	mkdir -p $(BUILD)
+	gnatmake $(CMP_FLAGS) -D $(BUILD) -o $(BUILD)/$(FILE) $(FILE).adb
 
 run: all
-	./$(FILE)
+	cd $(BUILD) && ./$(FILE)
 
-make:
-	gnatmake hello_world.adb
-	gcc -c hello_world.adb
-	gnatbind -x hello_world.ali
-	gnatlink hello_world.ali
+clean:
+	rm -rf $(BUILD)
