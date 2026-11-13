@@ -1,5 +1,5 @@
 
-FILE ?= cyclic_watchdog
+FILE ?= comm
 CMP_FLAGS ?= -gnat2022
 BUILD ?= build
 
