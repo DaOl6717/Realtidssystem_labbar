@@ -11,19 +11,15 @@ procedure comm1 is
    Message   : constant String := "Process communication";
    Delay_Gen : Ada.Numerics.Float_Random.Generator;
    task buffer is
-      entry Put (X : Integer);
+      entry Put (X : Integer; Stop : out Boolean);
       entry Get (X : out Integer);
       entry Finished;
-      -- add your task entries for communication
    end buffer;
 
    task producer is
-      entry Finished;
-      -- add your task entries for communication
    end producer;
 
    task consumer is
-      -- add your task entries for communication
    end consumer;
 
    function Rand_Float (Min : Float; Max : Float) return Float is
@@ -56,17 +52,26 @@ procedure comm1 is
       First : Integer := 1;
       Last  : Integer := 1;
 
+      Stopping : Boolean := False;
+
    begin
       Put_Line (Message);
       loop
          -- add your task code inside this loop
-         select
-            accept Finished;
+         if (Stopping) then
+            accept Put (X : Integer; Stop : out Boolean) do
+               Stop := True;
+            end Put;
             Put_Line ("Stopping buffer");
             exit;
+         end if;
+
+         select
+            accept Finished;
+            Stopping := True;
          or
             when Num_Elem < Size
-            =>accept Put (X : Integer) do
+            =>accept Put (X : Integer; Stop : out Boolean) do
                Num_Elem := Num_Elem + 1;
                Items (Last) := X;
                if (Last >= Size) then
@@ -74,7 +79,7 @@ procedure comm1 is
                else
                   Last := Last + 1;
                end if;
-
+               Stop := False;
             end Put;
          or
             when Num_Elem > 0
@@ -95,23 +100,24 @@ procedure comm1 is
       Message    : constant String := "producer executing";
       Rand_Delay : Duration;
       Num        : Integer;
+      Stop       : Boolean;
       -- change/add your local declarations here
    begin
       Put_Line (Message);
       loop
          Rand_Delay := Duration (Rand_Float (0.0, 0.4));
-         select
-            accept Finished;
+
+         delay (Rand_Delay);
+         Num := Rand_Integer (0, 20);
+
+         buffer.Put (Num, Stop);
+
+         if (Stop) then
             Put_Line ("Stopping producer");
             exit;
-         or
-            delay (Rand_Delay);
-            Num := Rand_Integer (0, 20);
-
-            buffer.Put (Num);
-            Put ("Putting number: ");
-            Put_Line (Integer'Image (Num));
-         end select;
+         end if;
+         Put ("Putting number: ");
+         Put_Line (Integer'Image (Num));
 
       end loop;
    end producer;
@@ -146,7 +152,6 @@ procedure comm1 is
 
       -- add your code to stop executions of other tasks
       Put_Line ("Stopping consumer");
-      producer.Finished;
       buffer.Finished;
 
    exception
