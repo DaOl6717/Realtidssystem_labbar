@@ -70,7 +70,6 @@ procedure comm1 is
                Num_Elem := Num_Elem + 1;
                Items (Last) := X;
                if (Last >= Size) then
-                  Put_Line ("WRAP AROUND LAST");
                   Last := 1;
                else
                   Last := Last + 1;
@@ -83,7 +82,6 @@ procedure comm1 is
                Num_Elem := Num_Elem - 1;
                X := Items (First);
                if (First >= Size) then
-                  Put_Line ("WRAP AROUND FIRST");
                   First := 1;
                else
                   First := First + 1;
