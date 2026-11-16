@@ -36,15 +36,15 @@ begin
    Put_Line (Message);
    loop
       Now := Clock;  -- Update clock
+      -- When we are in intervall for next F1 execution, call F1 & F2
       if (Now >= F1_Next) then
-         -- When we are in intervall for next F1 execution, call F1 & F2
          F1_Next := F1_Next + 1.0; -- Calculating F1's next execution
          f1;
          f2;
       end if;
 
+      -- When we are in intervall for next F3 execution, call F3
       if (Now >= F3_Next) then
-         -- When we are in intervall for next F3 execution, call F3
          F3_Next := F3_Next + 2.0; -- Calculating F3's next execution
          f3;
       end if;

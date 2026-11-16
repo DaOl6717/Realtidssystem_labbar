@@ -18,10 +18,11 @@ procedure cyclic_watchdog is
    F3_Next         : Time := F1_Next + 0.5;
    Deadline_Missed : Boolean := False;
 
+   -- Generates a random float value between Min and Max
    function Rand_Float (Min : Float; Max : Float) return Float is
    begin
       return
-        (Float (Ada.Numerics.Float_Random.Random (Gen)) * (Max - Min)) + Min;
+        (Float (Ada.Numerics.Float_Random.Random (Gen)) * (Max - Min)) + Min; -- Generates a random float between min and max
    end Rand_Float;
 
    procedure f1 is
@@ -50,6 +51,7 @@ procedure cyclic_watchdog is
    end f3;
 
    task Watchdog is
+      -- Signals to help keep track of when a task starts/stops
       entry Start;
       entry Finished;
    end Watchdog;
@@ -58,15 +60,15 @@ procedure cyclic_watchdog is
       Deadline : Time;
    begin
       loop
-         -- add your task code inside this loop
          accept Start;
          Deadline := Clock + 0.5;
          select
-            accept Finished;
+            accept Finished; -- If we received finish, do nothing
          or
+            -- Else delay until next deadline
             delay until Deadline;
             Put_Line ("F3 Exceeded its deadline!");
-            Deadline_Missed := True;
+            Deadline_Missed := True; -- Activate resynchronisation
             accept Finished;
          end select;
       end loop;
@@ -75,12 +77,14 @@ procedure cyclic_watchdog is
 begin
    Put_Line (Message);
    loop
+      -- When we are in intervall for next F1 execution, call F1 & F2
       if (Clock >= F1_Next) then
-         F1_Next := F1_Next + 1.0;
+         F1_Next := F1_Next + 1.0;  -- Calculating F1's next execution
          f1;
          f2;
       end if;
 
+      -- When we are in intervall for next F3 execution, call F3
       if (Clock >= F3_Next) then
          F3_Next := F3_Next + 2.0;
          Deadline_Missed := False;
@@ -89,15 +93,16 @@ begin
          Watchdog.Finished;
 
          if (Deadline_Missed) then
+         -- Resynchronisation
             declare
                Elapsed    : Duration := Clock - Start_Time;
                NextSecond : Duration;
                Ceiled     : Float;
             begin
                Ceiled := Float'Ceiling (Float (Elapsed));
-               NextSecond := Duration (Ceiled);
-               F1_Next := Start_Time + NextSecond;
-               F3_Next := F1_Next + 0.5;
+               NextSecond := Duration (Ceiled);    -- Round to closest next second
+               F1_Next := Start_Time + NextSecond; -- Calculate new start time for F1
+               F3_Next := F1_Next + 0.5;           -- Calculate new start time for F3
                Put_Line ("Resynchronized!");
             end;
          end if;
