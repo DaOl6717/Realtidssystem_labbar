@@ -1,5 +1,5 @@
 
-FILE ?= comm
+FILE ?= protected_comm
 CMP_FLAGS ?= -gnat2022
 BUILD ?= build
 
