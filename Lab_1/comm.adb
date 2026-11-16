@@ -1,4 +1,5 @@
---Process commnication: Ada lab part 3
+-- Process commnication: Ada lab part 3
+-- Written by David Olmedo & Filip Hellgren
 
 with Ada.Calendar;
 with Ada.Text_IO;

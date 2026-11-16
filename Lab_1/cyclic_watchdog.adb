@@ -1,4 +1,5 @@
---Cyclic scheduler with a watchdog:
+-- Cyclic scheduler with a watchdog:
+-- Written by David Olmedo & Filip Hellgren
 
 with Ada.Calendar;
 with Ada.Numerics.Float_Random;

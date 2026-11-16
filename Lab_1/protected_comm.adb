@@ -1,4 +1,5 @@
---Process commnication: Ada lab part 4
+-- Process commnication: Ada lab part 4
+-- Written by David Olmedo & Filip Hellgren
 
 with Ada.Calendar;
 with Ada.Text_IO;
@@ -12,17 +13,16 @@ procedure protected_comm is
    Delay_Gen : Ada.Numerics.Float_Random.Generator;
    Size      : constant Integer := 10;
    type Buffer_T is array (1 .. Size) of Integer;
+   -- We implemented a circular buffer.
    protected buffer is
       entry Put (X : Integer; Stop : out Boolean);
       entry Get (X : out Integer);
       procedure Finished;
    private
-      -- change/add your local declarations here
-      Num_Elem : Integer := 0;
-
-      Items : Buffer_T;
-      First : Integer := 1;
-      Last  : Integer := 1;
+      Items    : Buffer_T;
+      Num_Elem : Integer := 0; -- Current number of elements in the buffer.
+      First    : Integer := 1; -- Index where the next get will take a value.
+      Last     : Integer := 1; -- Index where the next put will put a value.
 
       Stopping : Boolean := False;
    end buffer;
@@ -68,7 +68,6 @@ procedure protected_comm is
             end if;
             Stop := False;
          end if;
-
       end Put;
 
       entry Get (X : out Integer) when Num_Elem > 0 is
@@ -80,7 +79,6 @@ procedure protected_comm is
          else
             First := First + 1;
          end if;
-
       end Get;
 
       procedure Finished is
