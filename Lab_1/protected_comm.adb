@@ -60,11 +60,12 @@ procedure protected_comm is
       begin
          if (Stopping = True) then
             Stop := True;        -- Tells producer to terminate
+
          else
             Num_Elem := Num_Elem + 1;
             Items (Last) := X;
             -- If last element is populated, add to front buffer,
-            -- enables a cyclic buffer structure  
+            -- enables a cyclic buffer structure
             if (Last >= Size) then
                Last := 1;
             else
@@ -74,12 +75,14 @@ procedure protected_comm is
          end if;
       end Put;
 
-      entry Get (X : out Integer) when Num_Elem > 0 is   -- If there are elements in buffer, take out one
+      entry Get (X : out Integer) when Num_Elem > 0 is
+         -- If there are elements in buffer, take out one
       begin
          Num_Elem := Num_Elem - 1;  -- Decrease buffer size
          X := Items (First);
          if (First >= Size) then
             First := 1;             -- Handles cyclic buffer
+
          else
             First := First + 1;     -- Sets new first
          end if;
@@ -108,6 +111,7 @@ procedure protected_comm is
          if (Stop) then
             Put_Line ("Stopping producer");
             exit; -- Terminate producer
+
          end if;
          Put ("Putting number: ");
          Put_Line (Integer'Image (Num));
@@ -118,7 +122,8 @@ procedure protected_comm is
       Message    : constant String := "consumer executing";
       Rand_Delay : Duration;
       Num        : Integer;      -- Value retreived from buffer
-      Sum        : Integer := 0; -- Consumer sum, should terminate program when sum > 100
+      Sum        : Integer :=
+        0; -- Consumer sum, should terminate program when sum > 100
    begin
       Put_Line (Message);
 

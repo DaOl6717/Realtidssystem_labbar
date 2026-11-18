@@ -22,7 +22,8 @@ procedure cyclic_watchdog is
    function Rand_Float (Min : Float; Max : Float) return Float is
    begin
       return
-        (Float (Ada.Numerics.Float_Random.Random (Gen)) * (Max - Min)) + Min; -- Generates a random float between min and max
+        (Float (Ada.Numerics.Float_Random.Random (Gen)) * (Max - Min))
+        + Min; -- Generates a random float between min and max
    end Rand_Float;
 
    procedure f1 is
@@ -65,7 +66,7 @@ procedure cyclic_watchdog is
          select
             accept Finished; -- If we received finish, do nothing
          or
-            -- Else delay until next deadline
+         -- Else delay until next deadline
             delay until Deadline;
             Put_Line ("F3 Exceeded its deadline!");
             Deadline_Missed := True; -- Activate resynchronisation
@@ -93,16 +94,19 @@ begin
          Watchdog.Finished;
 
          if (Deadline_Missed) then
-         -- Resynchronisation
+            -- Resynchronisation
             declare
                Elapsed    : Duration := Clock - Start_Time;
                NextSecond : Duration;
                Ceiled     : Float;
             begin
                Ceiled := Float'Ceiling (Float (Elapsed));
-               NextSecond := Duration (Ceiled);    -- Round to closest next second
-               F1_Next := Start_Time + NextSecond; -- Calculate new start time for F1
-               F3_Next := F1_Next + 0.5;           -- Calculate new start time for F3
+               NextSecond :=
+                 Duration (Ceiled);    -- Round to closest next second
+               F1_Next :=
+                 Start_Time + NextSecond; -- Calculate new start time for F1
+               F3_Next :=
+                 F1_Next + 0.5;           -- Calculate new start time for F3
                Put_Line ("Resynchronized!");
             end;
          end if;

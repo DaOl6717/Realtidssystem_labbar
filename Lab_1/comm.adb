@@ -46,7 +46,8 @@ procedure comm1 is
    task body buffer is
       Message  : constant String := "buffer executing";
       Num_Elem : Integer := 0;      -- Current number of elements in buffer
-      Size     : Integer := 10;     -- Maxumum allowed number of elements in buffer
+      Size     : Integer :=
+        10;     -- Maxumum allowed number of elements in buffer
 
       type Buffer is array (1 .. Size) of Integer; -- Buffer of Integers
 
@@ -67,6 +68,7 @@ procedure comm1 is
             end Put;
             Put_Line ("Stopping buffer");
             exit; -- Terminate buffer
+
          end if;
 
          select
@@ -74,27 +76,35 @@ procedure comm1 is
             Stopping := True;
          or
             when Num_Elem < Size
-            =>accept Put (X : Integer; Stop : out Boolean) do  -- Producer
-               Num_Elem := Num_Elem + 1;                       -- Increase buffer size
+            =>accept Put (X : Integer; Stop : out Boolean) do
+               -- Producer
+               Num_Elem :=
+                 Num_Elem + 1;                       -- Increase buffer size
                Items (Last) := X;
                -- If last element is populated, add to front buffer,
-               -- enables a cyclic buffer structure    
+               -- enables a cyclic buffer structure
                if (Last >= Size) then
                   Last := 1;
                else
-                  Last := Last + 1;                            -- Append new element
+                  Last :=
+                    Last + 1;                            -- Append new element
                end if;
                Stop := False;
             end Put;
          or
             when Num_Elem > 0
-            =>accept Get (X : out Integer) do                  -- Consumer
-               Num_Elem := Num_Elem - 1;                       -- Decrease buffer size
+            =>accept Get (X : out Integer) do
+               -- Consumer
+               Num_Elem :=
+                 Num_Elem - 1;                       -- Decrease buffer size
                X := Items (First);
                if (First >= Size) then
-                  First := 1;                                  -- Handles cyclic buffer
+                  First :=
+                    1;                                  -- Handles cyclic buffer
+
                else
-                  First := First + 1;                          -- Sets new first
+                  First :=
+                    First + 1;                          -- Sets new first
                end if;
             end Get;
          end select;
@@ -119,6 +129,7 @@ procedure comm1 is
          if (Stop) then
             Put_Line ("Stopping producer");
             exit; -- Terminate producer
+
          end if;
          Put ("Putting number: ");
          Put_Line (Integer'Image (Num));
@@ -129,7 +140,8 @@ procedure comm1 is
       Message    : constant String := "consumer executing";
       Rand_Delay : Duration;
       Num        : Integer;      -- Value retreived from buffer
-      Sum        : Integer := 0; -- Consumer sum, should terminate program when sum > 100
+      Sum        : Integer :=
+        0; -- Consumer sum, should terminate program when sum > 100
    begin
       Put_Line (Message);
 
