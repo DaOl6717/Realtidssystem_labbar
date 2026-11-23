@@ -9,6 +9,7 @@ package body Tasks is
    --  Tasks  --
    -------------
 
+   -- Defines events
    type EventID is
      (RightPressed,
       RightReleased,
@@ -19,9 +20,10 @@ package body Tasks is
       DownPressed,
       DownReleased,
       EnteredLine,
-      ExitedLine); -- Uppgift 2.2, fortsätt härifrån!
+      ExitedLine); -- TODO: Uppgift 2.2, fortsätt härifrån!
 
    protected Event is
+      -- Protected ensures only one task at a time can access
       entry Wait (id : out EventID);
       procedure Signal (id : in EventID);
    private
@@ -33,7 +35,8 @@ package body Tasks is
    end Event;
 
    protected body Event is
-      entry Wait (id : out EventID) when Signalled is
+      entry Wait (id : out EventID) when signalled is
+         -- Using signalled as barrier
       begin
          id := currentID;
          signalled := false;
@@ -46,8 +49,7 @@ package body Tasks is
    end Event;
 
    task EventDispatcherTask is
-      pragma Priority (System.Priority'Last - 1);
-
+      pragma Priority (System.Priority'Last - 1);  -- Sets priority
    end EventDispatcherTask;
    task body EventDispatcherTask is
       type KeysPressed is array (1 .. 4) of Boolean; -- left, right, up, down
@@ -61,14 +63,16 @@ package body Tasks is
          newVal        : Boolean;
          eventToSignal : EventID;
       begin
-         prevVal := keys (arrayIndex);
-         newVal := button_pressed (button);
+         prevVal := keys (arrayIndex);       -- Reads previous state of button
+         newVal :=
+           button_pressed (button);  -- Reads new button state from simulator
 
+         -- If button goes from released to pressed...
          if (newVal = true and prevVal = false) then
             Put ("Button ");
             Put (ButtonID'Image (button));
             Put_Line (" down");
-            -- Signal keyDownEvent
+            -- ... signal keyDownEvent for that button
             case button is
                when LeftButton  =>
                   eventToSignal := LeftPressed;
@@ -82,12 +86,14 @@ package body Tasks is
                when DownButton  =>
                   eventToSignal := DownPressed;
             end case;
-            Event.Signal (eventToSignal);
+            Event.Signal
+              (eventToSignal); -- Signals event to the protected object
+         -- ... or if button goes from pressed to released
          elsif (newVal = false and prevVal = true) then
             Put (("Button "));
             Put (ButtonID'Image (button));
             Put_Line (" RELEASED!");
-            -- Signal keyUpEvent
+            -- ... signal keyUpEvent for that button
             case button is
                when LeftButton  =>
                   eventToSignal := LeftReleased;
@@ -101,7 +107,8 @@ package body Tasks is
                when DownButton  =>
                   eventToSignal := DownReleased;
             end case;
-            Event.Signal (eventToSignal);
+            Event.Signal
+              (eventToSignal); -- Signals event to the protected object
          end if;
          keys (arrayIndex) := newVal;
       end NotifyKeyChanges;
@@ -152,6 +159,9 @@ package body Tasks is
    task MotorControlTask is
       -- define its priority higher than the main procedure --
       -- main procedure priority is declared at main.adb:9
+      -- OBS! inte våra kommentarer och vi definierar inte ens prioritet
+      -- för den här funktionen? Antar att den använder ngn std prio då?
+      -- TODO
    end MotorControlTask;
 
    task body MotorControlTask is
@@ -161,6 +171,7 @@ package body Tasks is
       LastMove       : Integer :=
         0; -- 0 : (none), 1 : Forward, 2 : Reverse, 3 : Left, 4 : Right
 
+      -- Helper: Makes it easier to control the motors
       procedure SetMotors (left : Integer := 0; right : Integer := 0) is
       begin
          set_motor_speed (LeftMotor, left);
@@ -259,7 +270,6 @@ package body Tasks is
    procedure Background is
 
    begin
-
       while not simulation_stopped loop
          delay 0.25;
       end loop;
