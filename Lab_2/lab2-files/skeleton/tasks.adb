@@ -28,19 +28,19 @@ package body Tasks is
       -- assign priority that is ceiling of the
       -- user tasks ’ priorities
       pragma Priority (System.Priority'Last - 2); -- ???
-      current_id : EventID; -- event data
-      signalled  : Boolean := false; -- flag for event signal
+      currentID : EventID; -- event data
+      signalled : Boolean := false; -- flag for event signal
    end Event;
 
    protected body Event is
       entry Wait (id : out EventID) when Signalled is
       begin
-         id := current_id;
+         id := currentID;
          signalled := false;
       end Wait;
       procedure Signal (id : in EventID) is
       begin
-         current_id := id;
+         currentID := id;
          signalled := true;
       end Signal;
    end Event;
@@ -51,9 +51,12 @@ package body Tasks is
    end EventDispatcherTask;
    task body EventDispatcherTask is
       type KeysPressed is array (1 .. 4) of Boolean; -- left, right, up, down
-      keys : KeysPressed := (others => False); -- initialize  all keys to false
+      keys           : KeysPressed :=
+        (others => False); -- initialize  all keys to false
+      lightThreshold : Integer := 350;
+      isOnLine       : Boolean := False;
 
-      procedure NotifyChanges (button : ButtonID; arrayIndex : Integer) is
+      procedure NotifyKeyChanges (button : ButtonID; arrayIndex : Integer) is
          prevVal       : Boolean;
          newVal        : Boolean;
          eventToSignal : EventID;
@@ -101,17 +104,46 @@ package body Tasks is
             Event.Signal (eventToSignal);
          end if;
          keys (arrayIndex) := newVal;
-         return;
-      end NotifyChanges;
+      end NotifyKeyChanges;
+
+      function IsSensorValueOnLine (sensorValue : Integer) return Boolean is
+      begin
+         if (sensorValue < lightThreshold) then
+            return True;
+         else
+            return False;
+         end if;
+      end IsSensorValueOnLine;
+
+      procedure NotifyLineChanges is
+         prevOnLine : Boolean;
+         newOnLine  : Boolean;
+         sensorVal  : Integer;
+      begin
+         sensorVal := read_light_sensor (LS2);
+         prevOnLine := isOnLine;
+         newOnLine := IsSensorValueOnLine (sensorVal);
+         -- Put_Line (Integer'Image (sensorVal));
+
+         if (prevOnLine = True and newOnLine = False) then
+            -- Line left
+            Event.Signal (ExitedLine);
+         elsif (prevOnLine = False and newOnLine = True) then
+            -- Line entered
+            Event.signal (EnteredLine);
+         end if;
+
+         isOnLine := newOnLine;
+      end NotifyLineChanges;
 
    begin
       Put_Line ("Event Dispatcher running");
       while True loop
-         NotifyChanges (LeftButton, 1);
-         NotifyChanges (RightButton, 2);
-         NotifyChanges (UpButton, 3);
-         NotifyChanges (DownButton, 4);
-
+         NotifyKeyChanges (LeftButton, 1);
+         NotifyKeyChanges (RightButton, 2);
+         NotifyKeyChanges (UpButton, 3);
+         NotifyKeyChanges (DownButton, 4);
+         NotifyLineChanges;
          delay (0.010);
       end loop;
 
@@ -123,33 +155,101 @@ package body Tasks is
    end MotorControlTask;
 
    task body MotorControlTask is
-      RecentEvent : EventID;
-      Speed       : Integer := 500;
+      RecentEvent    : EventID;
+      MaxSpeed       : Integer := 500;
+      IsCrossingLine : Boolean := False;
+      LastMove       : Integer :=
+        0; -- 0 : (none), 1 : Forward, 2 : Reverse, 3 : Left, 4 : Right
 
       procedure SetMotors (left : Integer := 0; right : Integer := 0) is
       begin
          set_motor_speed (LeftMotor, left);
          set_motor_speed (RightMotor, right);
+
       end SetMotors;
+
+      procedure MoveForwards is
+      begin
+         SetMotors (MaxSpeed, MaxSpeed);
+      end MoveForwards;
+
+      procedure MoveBackwards is
+      begin
+         SetMotors (-MaxSpeed, -MaxSpeed);
+      end MoveBackwards;
+
+      procedure TurnLeft is
+      begin
+         SetMotors (-MaxSpeed, MaxSpeed);
+      end TurnLeft;
+
+      procedure TurnRight is
+      begin
+         SetMotors (MaxSpeed, -MaxSpeed);
+      end TurnRight;
+
+      procedure OnKeyPress (event : EventID) is
+      begin
+         case event is
+            when UpPressed    =>
+               MoveForwards;
+               LastMove := 1;
+
+            when DownPressed  =>
+               MoveBackwards;
+               LastMove := 2;
+
+            when LeftPressed  =>
+               TurnLeft;
+               LastMove := 3;
+
+            when RightPressed =>
+               TurnRight;
+               LastMove := 4;
+
+            when others       =>
+               SetMotors (0, 0);
+         end case;
+      end OnKeyPress;
    begin
       loop
          Event.Wait (RecentEvent);
          case RecentEvent is
-            when RightPressed =>
-               SetMotors (Speed, -Speed);
+            when EnteredLine =>
+               Put_Line ("ON THE LINE");
+               IsCrossingLine := True;
 
-            when LeftPressed  =>
-               SetMotors (-Speed, Speed);
+               case LastMove is
+                  when 1      =>
+                     -- Moved Forward
+                     MoveBackwards;
 
-            when UpPressed    =>
-               SetMotors (Speed, Speed);
+                  when 2      =>
+                     -- Moved Backward
+                     MoveForwards;
 
-            when DownPressed  =>
-               SetMotors (-Speed, -Speed);
+                  when 3      =>
+                     -- Turned left
+                     TurnRight;
 
-            when others       =>
+                  when 4      =>
+                     -- Turned right
+                     TurnLeft;
+
+                  when others =>
+                     null;
+
+               end case;
+
+            when ExitedLine  =>
+               Put_Line ("EXCITED LINE");
+               IsCrossingLine := False;
                SetMotors (0, 0);
 
+            when others      =>
+               if (IsCrossingLine = False) then
+                  OnKeyPress (RecentEvent);
+               end if;
          end case;
          exit when simulation_stopped;
       end loop;
