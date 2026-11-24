@@ -20,7 +20,7 @@ package body Tasks is
       DownPressed,
       DownReleased,
       EnteredLine,
-      ExitedLine); -- TODO: Uppgift 2.2, fortsätt härifrån!
+      ExitedLine);
 
    protected Event is
       -- Protected ensures only one task at a time can access

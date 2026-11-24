@@ -1,0 +1,129 @@
+V "GNAT Lib v14"
+P ZX
+
+RN
+RV NO_DELAY
+RV NO_FIXED_POINT
+RV NO_IO
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_PROTECTED_TYPES
+RV NO_RELATIVE_DELAY
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_TASKING
+RV NO_DEFAULT_INITIALIZATION
+RV NO_ELABORATION_CODE
+RV MAX_TASKS=4
+
+U linetracker%b		linetracker.adb		3b7eeff2 OO PK
+W ada%s			ada.ads			ada.ali
+Z ada.calendar.delays%s	a-caldel.adb		a-caldel.ali
+W ada.real_time%s	a-reatim.adb		a-reatim.ali
+Z ada.real_time.delays%s  a-retide.adb		a-retide.ali
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W system%s		system.ads		system.ali
+Z system.parameters%s	s-parame.adb		s-parame.ali
+Z system.soft_links%s	s-soflin.adb		s-soflin.ali
+Z system.task_info%s	s-tasinf.adb		s-tasinf.ali
+Z system.tasking%s	s-taskin.adb		s-taskin.ali
+Z system.tasking.protected_objects%s  s-taprob.adb  s-taprob.ali
+Z system.tasking.stages%s  s-tassta.adb		s-tassta.ali
+W webots_api%s		webots_api.adb		webots_api.ali
+
+U linetracker%s		linetracker.ads		7010dcb5 EE NE OO PK
+W ada%s			ada.ads			ada.ali
+W ada.real_time%s	a-reatim.adb		a-reatim.ali
+Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
+
+D ada.ads		20250523110204 76789da1 ada%s
+D a-calend.ads		20260317171448 478f26d5 ada.calendar%s
+D a-caldel.ads		20250523110204 9f20b83d ada.calendar.delays%s
+D a-except.ads		20250523110204 e7970cd9 ada.exceptions%s
+D a-ioexce.ads		20250523110204 40018c65 ada.io_exceptions%s
+D a-reatim.ads		20250523110204 d11673fd ada.real_time%s
+D a-retide.ads		20250523110204 081cdaa4 ada.real_time.delays%s
+D a-stream.ads		20250523110204 119b8fb3 ada.streams%s
+D a-string.ads		20250523110204 90ac6797 ada.strings%s
+D a-sttebu.ads		20250523110204 f1ad67a2 ada.strings.text_buffers%s
+D a-stuten.ads		20250523110204 c6ced0ae ada.strings.utf_encoding%s
+D a-tags.ads		20250523110204 9eaa38c6 ada.tags%s
+D a-textio.ads		20250523110204 34ef47de ada.text_io%s
+D a-unccon.ads		20250523110204 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20250523110204 9111f9c1 interfaces%s
+D i-c.ads		20250523110204 aac316ce interfaces.c%s
+D i-cstrea.ads		20250523110204 ffd01b9d interfaces.c_streams%s
+D linetracker.ads	20261124100805 a106af48 linetracker%s
+D linetracker.adb	20261124101345 84260c0b linetracker%b
+D system.ads		20250523110204 14286b0f system%s
+D s-atacco.ads		20250523110204 5868e3ba system.address_to_access_conversions%s
+D s-c_time.ads		20260317171448 400b4acf system.c_time%s
+D s-crtl.ads		20250523110204 beb39b9e system.crtl%s
+D s-exctab.ads		20250523110204 91bef6ef system.exception_table%s
+D s-ficobl.ads		20250523110204 dc5161d4 system.file_control_block%s
+D s-linux.ads		20260317171448 96312dab system.linux%s
+D s-multip.ads		20250523110204 38ac9f73 system.multiprocessors%s
+D s-oscons.ads		20260317171448 f5ae7be5 system.os_constants%s
+D s-osinte.ads		20260317171448 a8f58951 system.os_interface%s
+D s-parame.ads		20260317171448 a1aeab5c system.parameters%s
+D s-putima.ads		20250523110204 17291fe4 system.put_images%s
+D s-secsta.ads		20250523110204 578279f5 system.secondary_stack%s
+D s-soflin.ads		20250523110204 df77073e system.soft_links%s
+D s-stache.ads		20250523110204 0b81c1fe system.stack_checking%s
+D s-stausa.ads		20250523110204 5be75682 system.stack_usage%s
+D s-stalib.ads		20250523110204 1c9580f6 system.standard_library%s
+D s-stoele.ads		20250523110204 ccded4e8 system.storage_elements%s
+D s-tasinf.ads		20250523110204 528dde74 system.task_info%s
+D s-taspri.ads		20250523110204 4ec891e7 system.task_primitives%s
+D s-taprop.ads		20250523110204 6eefbe12 system.task_primitives.operations%s
+D s-taskin.ads		20250523110204 ebc4edbe system.tasking%s
+D s-taprob.ads		20250523110204 acd6094d system.tasking.protected_objects%s
+D s-tassta.ads		20250523110204 cca55c94 system.tasking.stages%s
+D s-traent.ads		20250523110204 c81cbf8c system.traceback_entries%s
+D s-unstyp.ads		20250523110204 fa2a7f59 system.unsigned_types%s
+D s-wchcon.ads		20250523110204 d9032363 system.wch_con%s
+D webots_api.ads	20261120101130 ef8f139d webots_api%s
+G a e
+G c Z s b [background linetracker 5 14 none]
+G c Z b b [robotstateTVIP linetracker 8 4 none]
+G c Z b b [motorcontroltaskTK linetracker 16 9 none]
+G c Z b b [motorcontroltaskTKVIP linetracker 16 4 none]
+G c Z b b [linefollowingtaskTK linetracker 33 9 none]
+G c Z b b [linefollowingtaskTKVIP linetracker 33 4 none]
+G c Z b b [distancetaskTK linetracker 44 9 none]
+G c Z b b [distancetaskTKVIP linetracker 44 4 none]
+G c Z b b [displaytaskTK linetracker 55 9 none]
+G c Z b b [displaytaskTKVIP linetracker 55 4 none]
+G r c none [background linetracker 5 14 none] [simulation_stopped webots_api 14 12 none]
+X 1 ada.ads
+16K9*Ada 20e8 18|1r6 1r25 19|1r6 1r25 2r6 2r25
+X 6 a-reatim.ads
+39K13*Real_Time 186e18 18|1w10 1r29 19|2w10 2r29
+50O9*Time<duration> 19|19r28 21r19
+55O9*Time_Span<duration> 19|20r28
+62V13*Clock{50O9} 19|19s36
+66V14*"+"{50O9} 19|27s23
+120V13*Milliseconds{55O9} 19|20s41
+X 13 a-textio.ads
+58K13*Text_IO 785e16 19|1w10 1r29
+565U14*Put_Line 19|25s10
+X 18 linetracker.ads
+4K9*LineTracker 8l5 8e16 19|7b14 73l5 73t16
+5U14*Background 19|66b14 72l8 72t18
+X 19 linetracker.adb
+8w14 RobotState 12b19 14l8 14t18
+16t9 MotorControlTask 18b14 31l8 31t24
+19o7 startTime{6|50O9} 23r15
+20o7 period{6|55O9} 27r25
+21o7 next{6|50O9} 23m7 27m10 27r18 28r22
+33t9 LineFollowingTask 38b14 42l8 42t25
+44t9 DistanceTask 49b14 53l8 53t20
+55t9 DisplayTask 60b14 64l8 64t19
+X 20 system.ads
+37K9*System 19|3w6 20|155e11
+X 35 s-stausa.ads
+207U14*Initialize 208i<c,__gnat_stack_usage_initialize>22
+272U14*Output_Results 276i<c,__gnat_stack_usage_output_results>22
+X 47 webots_api.ads
+1K9*Webots_API 19|5w6 5r22 47|18e15
+14V12*simulation_stopped{boolean} 19|69s17
+
