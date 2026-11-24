@@ -68,7 +68,7 @@ D s-tasren.ads		20250523110204 a67a9949 system.tasking.rendezvous%s
 D s-tassta.ads		20250523110204 cca55c94 system.tasking.stages%s
 D s-traent.ads		20250523110204 c81cbf8c system.traceback_entries%s
 D s-unstyp.ads		20250523110204 fa2a7f59 system.unsigned_types%s
-D webots_api.ads	20261120101130 ef8f139d webots_api%s
+D webots_api.ads	20261124105238 ef8f139d webots_api%s
 G a e
 G c Z b b [main standard 8 11 none]
 G r r none [main standard 8 11 none] [start webots_api__webotssync 4 11 none]

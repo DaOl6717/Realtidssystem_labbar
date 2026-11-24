@@ -3,7 +3,9 @@ P ZX
 
 RN
 RV NO_DELAY
+RV NO_DIRECT_BOOLEAN_OPERATORS
 RV NO_FIXED_POINT
+RV NO_FLOATING_POINT
 RV NO_IO
 RV NO_IMPLICIT_CONDITIONALS
 RV NO_PROTECTED_TYPES
@@ -11,10 +13,13 @@ RV NO_RELATIVE_DELAY
 RV NO_STANDARD_STORAGE_POOLS
 RV NO_TASKING
 RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLICIT_LOOPS
 RV NO_ELABORATION_CODE
 RV MAX_TASKS=4
+RV MAX_ENTRY_QUEUE_LENGTH=1+
 
-U linetracker%b		linetracker.adb		3b7eeff2 OO PK
+U linetracker%b		linetracker.adb		8b00b31b OO PK
 W ada%s			ada.ads			ada.ali
 Z ada.calendar.delays%s	a-caldel.adb		a-caldel.ali
 W ada.real_time%s	a-reatim.adb		a-reatim.ali
@@ -22,13 +27,15 @@ Z ada.real_time.delays%s  a-retide.adb		a-retide.ali
 Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
 W ada.text_io%s		a-textio.adb		a-textio.ali
 W system%s		system.ads		system.ali
+Z system.atomic_primitives%s  s-atopri.adb	s-atopri.ali
+Z system.img_int%s	s-imgint.ads		s-imgint.ali
 Z system.parameters%s	s-parame.adb		s-parame.ali
 Z system.soft_links%s	s-soflin.adb		s-soflin.ali
 Z system.task_info%s	s-tasinf.adb		s-tasinf.ali
 Z system.tasking%s	s-taskin.adb		s-taskin.ali
 Z system.tasking.protected_objects%s  s-taprob.adb  s-taprob.ali
 Z system.tasking.stages%s  s-tassta.adb		s-tassta.ali
-W webots_api%s		webots_api.adb		webots_api.ali
+W webots_api%s		webots_api.adb		webots_api.ali  AD
 
 U linetracker%s		linetracker.ads		7010dcb5 EE NE OO PK
 W ada%s			ada.ads			ada.ali
@@ -53,13 +60,16 @@ D interfac.ads		20250523110204 9111f9c1 interfaces%s
 D i-c.ads		20250523110204 aac316ce interfaces.c%s
 D i-cstrea.ads		20250523110204 ffd01b9d interfaces.c_streams%s
 D linetracker.ads	20261124100805 a106af48 linetracker%s
-D linetracker.adb	20261124101345 84260c0b linetracker%b
+D linetracker.adb	20261124124715 345850e2 linetracker%b
 D system.ads		20250523110204 14286b0f system%s
 D s-atacco.ads		20250523110204 5868e3ba system.address_to_access_conversions%s
+D s-atopri.ads		20250523110204 e19c1d89 system.atomic_primitives%s
 D s-c_time.ads		20260317171448 400b4acf system.c_time%s
 D s-crtl.ads		20250523110204 beb39b9e system.crtl%s
 D s-exctab.ads		20250523110204 91bef6ef system.exception_table%s
 D s-ficobl.ads		20250523110204 dc5161d4 system.file_control_block%s
+D s-imagei.ads		20250523110204 5e131ce0 system.image_i%s
+D s-imgint.ads		20250523110204 67e4edfb system.img_int%s
 D s-linux.ads		20260317171448 96312dab system.linux%s
 D s-multip.ads		20250523110204 38ac9f73 system.multiprocessors%s
 D s-oscons.ads		20260317171448 f5ae7be5 system.os_constants%s
@@ -80,50 +90,135 @@ D s-taprob.ads		20250523110204 acd6094d system.tasking.protected_objects%s
 D s-tassta.ads		20250523110204 cca55c94 system.tasking.stages%s
 D s-traent.ads		20250523110204 c81cbf8c system.traceback_entries%s
 D s-unstyp.ads		20250523110204 fa2a7f59 system.unsigned_types%s
+D s-valspe.ads		20250523110204 b0fcd073 system.val_spec%s
+D s-vaispe.ads		20250523110204 8280550e system.value_i_spec%s
+D s-vauspe.ads		20250523110204 89269ba5 system.value_u_spec%s
+D s-vs_int.ads		20250523110204 06b6b724 system.vs_int%s
+D s-vs_uns.ads		20250523110204 e7f47a27 system.vs_uns%s
 D s-wchcon.ads		20250523110204 d9032363 system.wch_con%s
-D webots_api.ads	20261120101130 ef8f139d webots_api%s
+D webots_api.ads	20261124105238 ef8f139d webots_api%s
 G a e
+G c b b b [b linetracker 7 1 none]
 G c Z s b [background linetracker 5 14 none]
-G c Z b b [robotstateTVIP linetracker 8 4 none]
-G c Z b b [motorcontroltaskTK linetracker 16 9 none]
-G c Z b b [motorcontroltaskTKVIP linetracker 16 4 none]
-G c Z b b [linefollowingtaskTK linetracker 33 9 none]
-G c Z b b [linefollowingtaskTKVIP linetracker 33 4 none]
-G c Z b b [distancetaskTK linetracker 44 9 none]
-G c Z b b [distancetaskTKVIP linetracker 44 4 none]
-G c Z b b [displaytaskTK linetracker 55 9 none]
-G c Z b b [displaytaskTKVIP linetracker 55 4 none]
+G c Z b b [setaction linetracker__robotstate 14 17 none]
+G c Z b b [getaction linetracker__robotstate 15 16 none]
+G c Z b b [settargetspeed linetracker__robotstate 16 17 none]
+G c Z b b [gettargetspeed linetracker__robotstate 17 16 none]
+G c Z b b [robotstate__setactionN linetracker 14 7 none]
+G c Z b b [robotstate__setactionP linetracker 14 7 none]
+G c Z b b [robotstate__getactionN linetracker 15 7 none]
+G c Z b b [robotstate__getactionP linetracker 15 7 none]
+G c Z b b [robotstate__settargetspeedN linetracker 16 7 none]
+G c Z b b [robotstate__settargetspeedP linetracker 16 7 none]
+G c Z b b [robotstate__gettargetspeedN linetracker 17 7 none]
+G c Z b b [robotstate__gettargetspeedP linetracker 17 7 none]
+G c Z b b [robotstateTVIP linetracker 13 4 none]
+G c Z b b [motorcontroltaskTK linetracker 42 9 none]
+G c Z b b [motorcontroltaskTKVIP linetracker 42 4 none]
+G c Z b b [linefollowingtaskTK linetracker 108 9 none]
+G c Z b b [linefollowingtaskTKVIP linetracker 108 4 none]
+G c Z b b [distancetaskTK linetracker 150 9 none]
+G c Z b b [distancetaskTKVIP linetracker 150 4 none]
+G c Z b b [displaytaskTK linetracker 194 9 none]
+G c Z b b [displaytaskTKVIP linetracker 194 4 none]
+G r c none [b linetracker 7 1 none] [set_motor_speed webots_api 11 13 none]
+G r c none [b linetracker 7 1 none] [read_light_sensor webots_api 12 12 none]
+G r c none [b linetracker 7 1 none] [read_distance_sensor webots_api 13 12 none]
 G r c none [background linetracker 5 14 none] [simulation_stopped webots_api 14 12 none]
+G r c none [motorcontroltaskTK linetracker 42 9 none] [set_motor_speed webots_api 11 13 none]
+G r c none [linefollowingtaskTK linetracker 108 9 none] [read_light_sensor webots_api 12 12 none]
+G r c none [distancetaskTK linetracker 150 9 none] [read_distance_sensor webots_api 13 12 none]
 X 1 ada.ads
 16K9*Ada 20e8 18|1r6 1r25 19|1r6 1r25 2r6 2r25
 X 6 a-reatim.ads
 39K13*Real_Time 186e18 18|1w10 1r29 19|2w10 2r29
-50O9*Time<duration> 19|19r28 21r19
-55O9*Time_Span<duration> 19|20r28
-62V13*Clock{50O9} 19|19s36
-66V14*"+"{50O9} 19|27s23
-120V13*Milliseconds{55O9} 19|20s41
+50O9*Time<duration> 19|45r32 47r23 111r37 113r28 153r29 155r20 197r28 199r19
+55O9*Time_Span<duration> 19|46r32 112r37 154r29 198r28
+62V13*Clock{50O9} 19|45s40 111s45 153s37 197s36
+66V14*"+"{50O9} 19|103s23 145s23 189s23 211s23
+120V13*Milliseconds{55O9} 19|46s45 112s50 154s42 198s41
 X 13 a-textio.ads
 58K13*Text_IO 785e16 19|1w10 1r29
-565U14*Put_Line 19|25s10
+515U14*Put 19|204s10
+565U14*Put_Line 19|205s10
 X 18 linetracker.ads
-4K9*LineTracker 8l5 8e16 19|7b14 73l5 73t16
-5U14*Background 19|66b14 72l8 72t18
+4K9*LineTracker 8l5 8e16 19|7b14 223l5 223t16
+5U14*Background 19|216b14 222l8 222t18
 X 19 linetracker.adb
-8w14 RobotState 12b19 14l8 14t18
-16t9 MotorControlTask 18b14 31l8 31t24
-19o7 startTime{6|50O9} 23r15
-20o7 period{6|55O9} 27r25
-21o7 next{6|50O9} 23m7 27m10 27r18 28r22
-33t9 LineFollowingTask 38b14 42l8 42t25
-44t9 DistanceTask 49b14 53l8 53t20
-55t9 DisplayTask 60b14 64l8 64t19
+9E9 ActionID 9e61 14r40 15r33 21r23 24r40 28r33 50r23
+9n22 TurnLeft{9E9} 94r18 142r35
+9n32 TurnRight{9E9} 97r18 139r35
+9n43 MoveForward{9E9} 21r35 91r18 136r35
+9n56 Stop{9E9}
+11i4 MaxSpeed{integer} 20r34 168r20 174r62 175r31 176r23 177r35 178r24
+13w14 RobotState 23b19 40l8 40t18 48r34 50r35 87r27 88r26 136r13 139r13 142r13
+. 188r10 202r36
+14U17 SetAction 14>28 24b17 27l11 27t20 136s24 139s24 142s24
+14e28 NewAction{9E9} 24b28 26r27
+15V16 GetAction{9E9} 28b16 31l11 31t20 50s46 87s38
+16U17 SetTargetSpeed 16>33 32b17 35l11 35t25 188s21
+16i33 NewSpeed{integer} 32b33 34r25
+17V16 GetTargetSpeed{integer} 36b16 39l11 39t25 48s45 88s37 202s47
+20i7 TargetSpeed=32:7{integer} 34r10 38r17
+21e7 CurrentAction{9E9} 26r10 30r17
+42t9 MotorControlTask 44b14 106l8 106t24
+45o7 StartTime{6|50O9} 84r15
+46o7 Period{6|55O9} 103r25
+47o7 Next{6|50O9} 84m7 103m10 103r18 104r22
+48i7 ForwardSpeed{integer} 61r21 61r35 66r22 66r37 88m10
+49i7 TurnSpeed{integer} 71r22 71r33 76r21 76r33
+50e7 CurrentAction{9E9} 87m10 90r15
+52U17 SetMotors 52b17 52>28 52>49 57l11 57t20 61s10 66s10 71s10 76s10 81s10
+52i28 Left{integer} 54r38
+52i49 Right{integer} 55r39
+59U17 MoveForwards 59b17 62l11 62t23 92s16
+64U17 MoveBackwards 64b17 67l11 67t24
+69U17 TurnLeft 69b17 72l11 72t19 95s16
+74U17 TurnRight 74b17 77l11 77t20 98s16
+79U17 Stop 79b17 82l11 82t15 101s16
+108t9 LineFollowingTask 110b14 148l8 148t25
+111o7 StartTime{6|50O9} 128r15
+112o7 Period{6|55O9} 145r25
+113o7 Next{6|50O9} 128m7 145m10 145r18 146r22
+114i7 LightThreshold{integer} 121r28
+115b7 LeftSensorOnLine{boolean} 131m10 137r21
+116b7 MiddleSensorOnLine{boolean} 132m10 134r14
+117b7 RightSensorOnLine{boolean} 133m10 140r21
+119V16 IsSensorValueOnLine{boolean} 119b16 119>37 126l11 126t30 131s30 132s32
+. 133s31
+119i37 SensorValue{integer} 121r14
+150t9 DistanceTask 152b14 192l8 192t20
+153o7 StartTime{6|50O9} 185r15
+154o7 Period{6|55O9} 189r25
+155o7 Next{6|50O9} 185m7 189m10 189r18 190r22
+156i7 Distance{integer} 187m10 188r54
+157i7 TargetDist{integer} 165r22
+159V16 CalcTargetSpeed{integer} 159b16 159>33 183l11 183t26 188s37
+159i33 Distance{integer} 165r35 167r14
+160i10 TargetSpeed{integer} 173m13 175r17 177r20 180r23
+161f10 Smoothing{float} 174r43
+162i10 MinimumDiff{integer} 170r28 170r56
+163i10 DistDiff{integer} 165m10 170r17 170r44 174r31
+194t9 DisplayTask 196b14 214l8 214t19
+197o7 StartTime{6|50O9} 208r15
+198o7 Period{6|55O9} 211r25
+199o7 Next{6|50O9} 208m7 211m10 211r18 212r22
+201U17 PrintSpeed 201b17 206l11 206t21 210s10
+202i10 CurrentSpeed{integer} 205r35
 X 20 system.ads
 37K9*System 19|3w6 20|155e11
-X 35 s-stausa.ads
+X 38 s-stausa.ads
 207U14*Initialize 208i<c,__gnat_stack_usage_initialize>22
 272U14*Output_Results 276i<c,__gnat_stack_usage_output_results>22
-X 47 webots_api.ads
-1K9*Webots_API 19|5w6 5r22 47|18e15
-14V12*simulation_stopped{boolean} 19|69s17
+X 55 webots_api.ads
+1K9*Webots_API 19|5w6 5r22 55|18e15
+8n20*LeftMotor{8E8} 19|54r27
+8n31*RightMotor{8E8} 19|55r27
+9n26*LS1{9E8} 19|131r70
+9n31*LS2{9E8} 19|132r72
+9n36*LS3{9E8} 19|133r71
+11U13*set_motor_speed 19|54s10 55s10
+12V12*read_light_sensor{integer} 19|131s51 132s53 133s52
+13V12*read_distance_sensor{integer} 19|187s22
+14V12*simulation_stopped{boolean} 19|219s17
 
