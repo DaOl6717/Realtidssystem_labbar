@@ -15,7 +15,7 @@ package body LineTracker is
    MaxSpeed : Integer := 500; -- Max robot forwards/backwards speed
 
    protected RobotState is
-      procedure SetAction (NewAction : ActionID);
+      procedure SetAction (NewAction : ActionID);  -- Set action we 
       function GetAction return ActionID;
       procedure SetTargetSpeed (NewSpeed : Integer);
       function GetTargetSpeed return Integer;

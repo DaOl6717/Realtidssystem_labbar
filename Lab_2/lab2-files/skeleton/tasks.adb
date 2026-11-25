@@ -28,7 +28,7 @@ package body Tasks is
    private
       -- Assign priority that is ceiling of the
       -- User tasks' priorities
-      pragma Priority (System.Priority'Last - 2);  -- Set priority to two steps lower than highest TODO: Jag satte bara 2 när vi skrev koden, ingen aning vilket värde vi borde ha!
+      pragma Priority (System.Priority'Last - 2);  -- Set priority to two steps lower than highest
       currentID : EventID;                         -- Event data
       signalled : Boolean := false;                -- Flag for event signal
    end Event;
@@ -157,11 +157,6 @@ package body Tasks is
    end EventDispatcherTask;
 
    task MotorControlTask is
-      -- define its priority higher than the main procedure --
-      -- main procedure priority is declared at main.adb:9
-      -- OBS! inte våra kommentarer och vi definierar inte ens prioritet
-      -- för den här funktionen? Antar att den använder ngn std prio då?
-      -- TODO
    end MotorControlTask;
 
    task body MotorControlTask is
