@@ -8,10 +8,6 @@ with System;
 with Webots_API; use Webots_API;
 
 package body Tasks is
-   -------------
-   --  Tasks  --
-   -------------
-
    -- Defines events
    type EventID is
      (RightPressed,
@@ -30,16 +26,15 @@ package body Tasks is
       entry Wait (id : out EventID);
       procedure Signal (id : in EventID);
    private
-      -- assign priority that is ceiling of the
-      -- user tasks ’ priorities
-      pragma Priority (System.Priority'Last - 2); -- ???
-      currentID : EventID; -- event data
-      signalled : Boolean := false; -- flag for event signal
+      -- Assign priority that is ceiling of the
+      -- User tasks' priorities
+      pragma Priority (System.Priority'Last - 2);  -- Set priority to two steps lower than highest TODO: Jag satte bara 2 när vi skrev koden, ingen aning vilket värde vi borde ha!
+      currentID : EventID;                         -- Event data
+      signalled : Boolean := false;                -- Flag for event signal
    end Event;
 
    protected body Event is
-      entry Wait (id : out EventID) when signalled is
-         -- Using signalled as barrier
+      entry Wait (id : out EventID) when signalled is -- Using signalled as barrier, caller is blocked until signalled = True
       begin
          id := currentID;
          signalled := false;
@@ -51,14 +46,15 @@ package body Tasks is
       end Signal;
    end Event;
 
+   -- Makes any changes into events
    task EventDispatcherTask is
       pragma Priority (System.Priority'Last - 1);  -- Sets priority
    end EventDispatcherTask;
    task body EventDispatcherTask is
-      type KeysPressed is array (1 .. 4) of Boolean; -- left, right, up, down
+      type KeysPressed is array (1 .. 4) of Boolean;  -- left, right, up, down
       keys           : KeysPressed :=
-        (others => False); -- initialize  all keys to false
-      lightThreshold : Integer := 350;
+        (others => False);                            -- initialize  all keys to false
+      lightThreshold : Integer := 350;                -- Light value below this is considered to be on the line
       isOnLine       : Boolean := False;
 
       procedure NotifyKeyChanges (button : ButtonID; arrayIndex : Integer) is
@@ -68,7 +64,7 @@ package body Tasks is
       begin
          prevVal := keys (arrayIndex);       -- Reads previous state of button
          newVal :=
-           button_pressed (button);  -- Reads new button state from simulator
+           button_pressed (button);          -- Reads new button state from simulator
 
          -- If button goes from released to pressed...
          if (newVal = true and prevVal = false) then
@@ -111,9 +107,9 @@ package body Tasks is
                   eventToSignal := DownReleased;
             end case;
             Event.Signal
-              (eventToSignal); -- Signals event to the protected object
+              (eventToSignal);         -- Signals event to the protected object
          end if;
-         keys (arrayIndex) := newVal;
+         keys (arrayIndex) := newVal;  -- Save for next call
       end NotifyKeyChanges;
 
       function IsSensorValueOnLine (sensorValue : Integer) return Boolean is
@@ -125,15 +121,15 @@ package body Tasks is
          end if;
       end IsSensorValueOnLine;
 
+      -- Reads light sensor value and signals an event when the robot enters/exits the line
       procedure NotifyLineChanges is
          prevOnLine : Boolean;
          newOnLine  : Boolean;
          sensorVal  : Integer;
       begin
-         sensorVal := read_light_sensor (LS2);
+         sensorVal := read_light_sensor (LS2);  -- Read center light sensor
          prevOnLine := isOnLine;
          newOnLine := IsSensorValueOnLine (sensorVal);
-         -- Put_Line (Integer'Image (sensorVal));
 
          if (prevOnLine = True and newOnLine = False) then
             -- Line left
@@ -149,12 +145,13 @@ package body Tasks is
    begin
       Put_Line ("Event Dispatcher running");
       while True loop
+         -- Check every key and the line sensor
          NotifyKeyChanges (LeftButton, 1);
          NotifyKeyChanges (RightButton, 2);
          NotifyKeyChanges (UpButton, 3);
          NotifyKeyChanges (DownButton, 4);
          NotifyLineChanges;
-         delay (0.010);
+         delay (0.010); -- Slightly reduce polling rate (10ms delay)
       end loop;
 
    end EventDispatcherTask;
@@ -171,8 +168,8 @@ package body Tasks is
       RecentEvent    : EventID;
       MaxSpeed       : Integer := 500;
       IsCrossingLine : Boolean := False;
-      LastMove       : Integer :=
-        0; -- 0 : (none), 1 : Forward, 2 : Reverse, 3 : Left, 4 : Right
+      -- 0 : (none), 1 : Forward, 2 : Reverse, 3 : Left, 4 : Right
+      LastMove       : Integer := 0;
 
       -- Helper: Makes it easier to control the motors
       procedure SetMotors (left : Integer := 0; right : Integer := 0) is
@@ -227,8 +224,9 @@ package body Tasks is
       end OnKeyPress;
    begin
       loop
-         Event.Wait (RecentEvent);
+         Event.Wait (RecentEvent);  -- Block here until the dispatcher signals a new event
          case RecentEvent is
+            -- Line evasion
             when EnteredLine =>
                Put_Line ("ON THE LINE");
                IsCrossingLine := True;
@@ -258,9 +256,10 @@ package body Tasks is
             when ExitedLine  =>
                Put_Line ("EXITED LINE");
                IsCrossingLine := False;
-               SetMotors (0, 0);
+               SetMotors (0, 0); -- Reset motor speed when exited line
 
             when others      =>
+            -- Button events are only handled when the robot is not on the line
                if (IsCrossingLine = False) then
                   OnKeyPress (RecentEvent);
                end if;
