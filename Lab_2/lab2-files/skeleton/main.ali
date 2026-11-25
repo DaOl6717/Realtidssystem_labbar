@@ -12,11 +12,10 @@ RV NO_DEFAULT_INITIALIZATION
 RV MAX_TASK_ENTRIES=1
 RV MAX_TASKS=1+
 
-U main%b		main.adb		024924e5 NE OO SU IL
+U main%b		main.adb		e5390b8d NE OO SU IL
 W ada%s			ada.ads			ada.ali
 W ada.real_time%s	a-reatim.adb		a-reatim.ali
 Z ada.real_time.delays%s  a-retide.adb		a-retide.ali
-W linetracker%s		linetracker.adb		linetracker.ali
 W system%s		system.ads		system.ali
 Z system.parameters%s	s-parame.adb		s-parame.ali
 Z system.soft_links%s	s-soflin.adb		s-soflin.ali
@@ -24,6 +23,7 @@ Z system.task_info%s	s-tasinf.adb		s-tasinf.ali
 Z system.tasking%s	s-taskin.adb		s-taskin.ali
 Z system.tasking.rendezvous%s  s-tasren.adb	s-tasren.ali
 Z system.tasking.stages%s  s-tassta.adb		s-tassta.ali
+W tasks%s		tasks.adb		tasks.ali
 W webots_api%s		webots_api.adb		webots_api.ali
 
 D ada.ads		20250523110204 76789da1 ada%s
@@ -39,8 +39,7 @@ D a-tags.ads		20250523110204 9eaa38c6 ada.tags%s
 D a-unccon.ads		20250523110204 0e9b276f ada.unchecked_conversion%s
 D interfac.ads		20250523110204 9111f9c1 interfaces%s
 D i-c.ads		20250523110204 aac316ce interfaces.c%s
-D linetracker.ads	20261124100805 a106af48 linetracker%s
-D main.adb		20261124101416 89fe80c2 main%b
+D main.adb		20261125120102 fd0f1805 main%b
 D system.ads		20250523110204 14286b0f system%s
 D s-atacco.ads		20250523110204 5868e3ba system.address_to_access_conversions%s
 D s-c_time.ads		20260317171448 400b4acf system.c_time%s
@@ -68,42 +67,43 @@ D s-tasren.ads		20250523110204 a67a9949 system.tasking.rendezvous%s
 D s-tassta.ads		20250523110204 cca55c94 system.tasking.stages%s
 D s-traent.ads		20250523110204 c81cbf8c system.traceback_entries%s
 D s-unstyp.ads		20250523110204 fa2a7f59 system.unsigned_types%s
+D tasks.ads		20261120115409 328718e7 tasks%s
 D webots_api.ads	20261124105238 ef8f139d webots_api%s
 G a e
 G c Z b b [main standard 8 11 none]
 G r r none [main standard 8 11 none] [start webots_api__webotssync 4 11 none]
 G r r none [main standard 8 11 none] [sync webots_api__webotssync 5 11 none]
 G r c none [main standard 8 11 none] [simulation_stopped webots_api 14 12 none]
-G r c none [main standard 8 11 none] [background linetracker 5 14 none]
+G r c none [main standard 8 11 none] [background tasks 5 14 none]
 X 1 ada.ads
-16K9*Ada 20e8 15|4r6 4r25
+16K9*Ada 20e8 14|4r6 4r25
 X 4 a-reatim.ads
-39K13*Real_Time 186e18 15|4w10 4r29
-50O9*Time<duration> 15|18r18
-55O9*Time_Span<duration> 15|19r18
-62V13*Clock{50O9} 15|18s26
-66V14*"+"{50O9} 15|28s31
-120V13*Milliseconds{55O9} 15|19s31
-X 14 linetracker.ads
-4K9*LineTracker 8e16 15|1w6 36r4
-5U14*Background 15|36s16
-X 15 main.adb
+39K13*Real_Time 186e18 14|4w10 4r29
+50O9*Time<duration> 14|18r18
+55O9*Time_Span<duration> 14|19r18
+62V13*Clock{50O9} 14|18s26
+66V14*"+"{50O9} 14|28s31
+120V13*Milliseconds{55O9} 14|19s31
+X 14 main.adb
 8U11*main 8b11 38l5 38t9
 13t9 SyncTask 17b14 31l8 31t16 34r4
 14Y13 start 23b14 34s13
 18o7 NextTime{4|50O9} 28m10 28r22 29r22
 19o7 Period{4|55O9} 28r33
-X 16 system.ads
-37K9*System 15|3w6 10r21 15r24 16|155e11
+X 15 system.ads
+37K9*System 14|3w6 10r21 15r24 15|155e11
 108I12*Any_Priority{integer}
-109I12*Priority{108I12} 15|10r28 15r31
-X 30 s-stausa.ads
+109I12*Priority{108I12} 14|10r28 15r31
+X 29 s-stausa.ads
 207U14*Initialize 208i<c,__gnat_stack_usage_initialize>22
 272U14*Output_Results 276i<c,__gnat_stack_usage_output_results>22
+X 42 tasks.ads
+4K9*Tasks 14|2w6 35r4 42|14e10
+5U14*Background 14|35s10
 X 43 webots_api.ads
-1K9*Webots_API 15|6w6 6r22 43|18e15
-3t8*WebotsSync 15|21r7 22r7 26r10
-4Y11 start 15|21s18
-5Y11 sync 15|22s18 26s21
-14V12*simulation_stopped{boolean} 15|27s20
+1K9*Webots_API 14|6w6 6r22 43|18e15
+3t8*WebotsSync 14|21r7 22r7 26r10
+4Y11 start 14|21s18
+5Y11 sync 14|22s18 26s21
+14V12*simulation_stopped{boolean} 14|27s20
 

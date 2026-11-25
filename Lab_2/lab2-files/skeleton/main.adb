@@ -1,5 +1,5 @@
-with LineTracker;
---with Tasks;
+--with LineTracker;
+with Tasks;
 with System;
 with Ada.Real_Time; use Ada.Real_Time;
 
@@ -32,7 +32,7 @@ procedure main is
 
 begin
    SyncTask.start;
-   --Tasks.Background;
-   LineTracker.Background;
+   Tasks.Background; -- Part 2
+   --LineTracker.Background; -- Part 3
 
 end main;

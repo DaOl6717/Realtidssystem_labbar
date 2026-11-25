@@ -1,3 +1,6 @@
+-- Line Tracking Robot: Ada lab part 3
+-- Written by David Olmedo & Filip Hellgren
+
 with Ada.Text_IO;   use Ada.Text_IO;
 with Ada.Real_Time; use Ada.Real_Time;
 with System;
@@ -6,19 +9,23 @@ with Webots_API; use Webots_API;
 
 package body LineTracker is
 
-   type ActionID is (TurnLeft, TurnRight, MoveForward, Stop);
+   type ActionID is
+     (TurnLeft, TurnRight, MoveForward);  -- Defines robot actions
 
-   MaxSpeed : Integer := 500;
+   MaxSpeed : Integer := 500; -- Max robot forwards/backwards speed
 
    protected RobotState is
       procedure SetAction (NewAction : ActionID);
       function GetAction return ActionID;
       procedure SetTargetSpeed (NewSpeed : Integer);
       function GetTargetSpeed return Integer;
+      procedure SetObstacleDistance (NewDist : Integer);
+      function GetObstacleDistance return Integer;
 
    private
-      TargetSpeed   : Integer := MaxSpeed;
-      CurrentAction : ActionID := MoveForward;
+      TargetSpeed      : Integer := MaxSpeed;
+      ObstacleDistance : Integer := 0;
+      CurrentAction    : ActionID := MoveForward;
    end RobotState;
    protected body RobotState is
       procedure SetAction (NewAction : ActionID) is
@@ -37,6 +44,14 @@ package body LineTracker is
       begin
          return TargetSpeed;
       end GetTargetSpeed;
+      procedure SetObstacleDistance (NewDist : Integer) is
+      begin
+         ObstacleDistance := NewDist;
+      end SetObstacleDistance;
+      function GetObstacleDistance return Integer is
+      begin
+         return ObstacleDistance;
+      end GetObstacleDistance;
    end RobotState;
 
    task MotorControlTask is
@@ -75,11 +90,6 @@ package body LineTracker is
       begin
          SetMotors (TurnSpeed, -TurnSpeed);
       end TurnRight;
-
-      procedure Stop is
-      begin
-         SetMotors (0, 0);
-      end Stop;
    begin
       Next := StartTime;
       loop
@@ -98,7 +108,7 @@ package body LineTracker is
                TurnRight;
 
             when others      =>
-               Stop;
+               null;
          end case;
          Next := Next + Period;
          delay until Next;
@@ -159,7 +169,7 @@ package body LineTracker is
       function CalcTargetSpeed (Distance : Integer) return Integer is
          TargetSpeed : Integer := 0;
          Smoothing   : Float := 0.005;
-         MinimumDiff : Integer := 30;
+         Margin      : Integer := 30;
          DistDiff    : Integer;
       begin
          DistDiff := TargetDist - Distance;
@@ -167,7 +177,7 @@ package body LineTracker is
          if (Distance < 70) then
             return MaxSpeed;
          else
-            if (DistDiff < MinimumDiff and DistDiff > -MinimumDiff) then
+            if (DistDiff < Margin and DistDiff > -Margin) then
                return 0;
             end if;
             TargetSpeed :=
@@ -206,20 +216,43 @@ package body LineTracker is
       end PrintSpeed;
 
       procedure PrintObstacleDistance is
+         CurrentDistance : Integer := RobotState.GetObstacleDistance;
       begin
-         null;
+         Put ("Current distance: ");
+         Put_Line (Integer'Image (CurrentDistance));
       end PrintObstacleDistance;
+
+      procedure PrintCurrentAction is
+         Action : ActionID := RobotState.GetAction;
+      begin
+         Put ("Current Action: ");
+         case Action is
+            when TurnLeft    =>
+               Put_Line ("Turn Left");
+
+            when TurnRight   =>
+               Put_Line ("Turn Right");
+
+            when MoveForward =>
+               Put_Line ("Move Forward");
+
+            when others      =>
+               Put_Line ("Unknown action");
+         end case;
+      end PrintCurrentAction;
    begin
       Next := StartTime;
       loop
          PrintSpeed;
+         PrintObstacleDistance;
+         PrintCurrentAction;
+
          Next := Next + Period;
          delay until Next;
       end loop;
    end DisplayTask;
 
    procedure Background is
-
    begin
       while not simulation_stopped loop
          delay 0.25;

@@ -1,3 +1,6 @@
+-- Controlling a robot: Ada lab part 2
+-- Written by David Olmedo & Filip Hellgren
+
 with Ada.Text_IO;   use Ada.Text_IO;
 with Ada.Real_Time; use Ada.Real_Time;
 with System;
@@ -253,7 +256,7 @@ package body Tasks is
                end case;
 
             when ExitedLine  =>
-               Put_Line ("EXCITED LINE");
+               Put_Line ("EXITED LINE");
                IsCrossingLine := False;
                SetMotors (0, 0);
 
