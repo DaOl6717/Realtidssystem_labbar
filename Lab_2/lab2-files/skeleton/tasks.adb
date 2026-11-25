@@ -28,13 +28,17 @@ package body Tasks is
    private
       -- Assign priority that is ceiling of the
       -- User tasks' priorities
-      pragma Priority (System.Priority'Last - 2);  -- Set priority to two steps lower than highest
+      pragma
+        Priority
+          (System.Priority'Last
+           - 1);  -- Set priority to one step less than highest
       currentID : EventID;                         -- Event data
       signalled : Boolean := false;                -- Flag for event signal
    end Event;
 
    protected body Event is
-      entry Wait (id : out EventID) when signalled is -- Using signalled as barrier, caller is blocked until signalled = True
+      entry Wait (id : out EventID) when signalled is
+         -- Using signalled as barrier, caller is blocked until signalled = True
       begin
          id := currentID;
          signalled := false;
@@ -46,15 +50,19 @@ package body Tasks is
       end Signal;
    end Event;
 
-   -- Makes any changes into events
    task EventDispatcherTask is
-      pragma Priority (System.Priority'Last - 1);  -- Sets priority
+      pragma
+        Priority
+          (System.Priority'Last
+           - 3);  -- Sets priority to be lower than the Event object's priority and lower than MotorControlTask.
    end EventDispatcherTask;
    task body EventDispatcherTask is
       type KeysPressed is array (1 .. 4) of Boolean;  -- left, right, up, down
       keys           : KeysPressed :=
-        (others => False);                            -- initialize  all keys to false
-      lightThreshold : Integer := 350;                -- Light value below this is considered to be on the line
+        (others =>
+           False);                            -- initialize  all keys to false
+      lightThreshold : Integer :=
+        350;                -- Light value below this is considered to be on the line
       isOnLine       : Boolean := False;
 
       procedure NotifyKeyChanges (button : ButtonID; arrayIndex : Integer) is
@@ -64,7 +72,8 @@ package body Tasks is
       begin
          prevVal := keys (arrayIndex);       -- Reads previous state of button
          newVal :=
-           button_pressed (button);          -- Reads new button state from simulator
+           button_pressed
+             (button);          -- Reads new button state from simulator
 
          -- If button goes from released to pressed...
          if (newVal = true and prevVal = false) then
@@ -157,8 +166,11 @@ package body Tasks is
    end EventDispatcherTask;
 
    task MotorControlTask is
+      pragma
+        Priority
+          (System.Priority'Last
+           - 2);  -- Sets priority to be lower than the Event object's priority
    end MotorControlTask;
-
    task body MotorControlTask is
       RecentEvent    : EventID;
       MaxSpeed       : Integer := 500;
@@ -219,11 +231,13 @@ package body Tasks is
       end OnKeyPress;
    begin
       loop
-         Event.Wait (RecentEvent);  -- Block here until the dispatcher signals a new event
+         Event.Wait
+           (RecentEvent);  -- Block here until the dispatcher signals a new event
          case RecentEvent is
             -- Line evasion
+
             when EnteredLine =>
-               Put_Line ("ON THE LINE");
+               Put_Line ("Detected line");
                IsCrossingLine := True;
 
                case LastMove is
@@ -249,12 +263,12 @@ package body Tasks is
                end case;
 
             when ExitedLine  =>
-               Put_Line ("EXITED LINE");
+               Put_Line ("Line no longer detected");
                IsCrossingLine := False;
                SetMotors (0, 0); -- Reset motor speed when exited line
 
             when others      =>
-            -- Button events are only handled when the robot is not on the line
+               -- Button events are only handled when the robot is not on the line
                if (IsCrossingLine = False) then
                   OnKeyPress (RecentEvent);
                end if;

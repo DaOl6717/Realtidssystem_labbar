@@ -24,7 +24,8 @@ package body LineTracker is
       function GetObstacleDistance return Integer;
 
    private
-      TargetSpeed      : Integer := MaxSpeed;      -- The speed when no obstacles are detected
+      TargetSpeed      : Integer :=
+        MaxSpeed;      -- The speed when no obstacles are detected
       ObstacleDistance : Integer := 0;             -- Initial obstacle distance
       CurrentAction    : ActionID := MoveForward;  -- The default action
    end RobotState;
@@ -59,12 +60,16 @@ package body LineTracker is
    task MotorControlTask is
    end MotorControlTask;
    task body MotorControlTask is
-      StartTime     : constant Time := Clock;                  -- Get current time
-      Period        : constant Time_Span := Milliseconds (50); -- Set task period
+      StartTime     : constant Time :=
+        Clock;                  -- Get current time
+      Period        : constant Time_Span :=
+        Milliseconds (50); -- Set task period
       Next          : Time;
       ForwardSpeed  : Integer := RobotState.GetTargetSpeed;
-      TurnSpeed     : Integer := 100;                          -- Turn speed always 100
-      CurrentAction : ActionID := RobotState.GetAction;        -- What action to do
+      TurnSpeed     : Integer :=
+        100;                          -- Turn speed always 100
+      CurrentAction : ActionID :=
+        RobotState.GetAction;        -- What action to do
 
       -- Helper: Set motor speed
       procedure SetMotors (Left : Integer := 0; Right : Integer := 0) is
@@ -122,15 +127,17 @@ package body LineTracker is
    task LineFollowingTask is
    end LineFollowingTask;
    task body LineFollowingTask is
-      StartTime          : constant Time := Clock;                   -- Get current time
-      Period             : constant Time_Span := Milliseconds (50);  -- Set task period
+      StartTime          : constant Time :=
+        Clock;                   -- Get current time
+      Period             : constant Time_Span :=
+        Milliseconds (50);  -- Set task period
       Next               : Time;
       LightThreshold     : constant Integer := 350;
       LeftSensorOnLine   : Boolean;
       MiddleSensorOnLine : Boolean;
       RightSensorOnLine  : Boolean;
 
-      -- Helper: Returns if sensor is on line 
+      -- Helper: Returns if sensor is on line
       function IsSensorValueOnLine (SensorValue : Integer) return Boolean is
       begin
          if (SensorValue < LightThreshold) then
@@ -170,15 +177,19 @@ package body LineTracker is
       StartTime  : constant Time := Clock;                  -- Current time
       Period     : constant Time_Span := Milliseconds (20); -- Set task period
       Next       : Time;
-      Distance   : Integer;                                 -- Latest distance sensor reading
-      TargetDist : Integer := 200;                          -- The distance the robot tries to keep
+      Distance   :
+        Integer;                                 -- Latest distance sensor reading
+      TargetDist : Integer :=
+        200;                          -- The distance the robot tries to keep
 
-      -- Helper: Calculates the robot's forwards/backwards speed
       function CalcTargetSpeed (Distance : Integer) return Integer is
          TargetSpeed : Integer := 0;   -- Speed to return
-         Smoothing   : Float := 0.005; -- Scales how strongly the speed reacts to the error
-         Margin      : Integer := 30;  -- Dead zone around the target when the robot stops
-         DistDiff    : Integer;        -- How far the reading is from the target
+         Smoothing   : Float :=
+           0.005; -- Scales how strongly the speed reacts to the error
+         Margin      : Integer :=
+           30;  -- Dead zone around the target when the robot stops
+         DistDiff    :
+           Integer;        -- How far the reading is from the target
       begin
          DistDiff := TargetDist - Distance;
 
@@ -186,8 +197,9 @@ package body LineTracker is
          if (Distance < 70) then
             return MaxSpeed;
          else
-            -- Inside dead zone, stop the robot
+
             if (DistDiff < Margin and DistDiff > -Margin) then
+               -- Inside dead zone, stop the robot
                return 0;
             end if;
             -- Increased speed with increased distance, but no more than MaxSpeed
@@ -207,6 +219,7 @@ package body LineTracker is
       loop
          -- Read distance value, calculate the speed, store it for the motor task
          Distance := read_distance_sensor;
+         RobotState.SetObstacleDistance (Distance);
          RobotState.SetTargetSpeed (CalcTargetSpeed (Distance));
          Next := Next + Period;
          delay until Next;

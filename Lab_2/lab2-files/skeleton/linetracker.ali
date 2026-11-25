@@ -17,7 +17,7 @@ RV NO_ELABORATION_CODE
 RV MAX_TASKS=4
 RV MAX_ENTRY_QUEUE_LENGTH=1+
 
-U linetracker%b		linetracker.adb		5ad998c6 OO PK
+U linetracker%b		linetracker.adb		a3d564af OO PK
 W ada%s			ada.ads			ada.ali
 Z ada.calendar.delays%s	a-caldel.adb		a-caldel.ali
 W ada.real_time%s	a-reatim.adb		a-reatim.ali
@@ -57,8 +57,8 @@ D a-unccon.ads		20250523110204 0e9b276f ada.unchecked_conversion%s
 D interfac.ads		20250523110204 9111f9c1 interfaces%s
 D i-c.ads		20250523110204 aac316ce interfaces.c%s
 D i-cstrea.ads		20250523110204 ffd01b9d interfaces.c_streams%s
-D linetracker.ads	20261125115019 a106af48 linetracker%s
-D linetracker.adb	20261125115849 e5817b3f linetracker%b
+D linetracker.ads	20261125211709 a106af48 linetracker%s
+D linetracker.adb	20261125211431 1c8d8756 linetracker%b
 D system.ads		20250523110204 14286b0f system%s
 D s-atacco.ads		20250523110204 5868e3ba system.address_to_access_conversions%s
 D s-atopri.ads		20250523110204 e19c1d89 system.atomic_primitives%s
@@ -98,123 +98,123 @@ D webots_api.ads	20261124105238 ef8f139d webots_api%s
 G a e
 G c b b b [b linetracker 10 1 none]
 G c Z s b [background linetracker 8 14 none]
-G c Z b b [setaction linetracker__robotstate 18 17 none]
-G c Z b b [getaction linetracker__robotstate 19 16 none]
-G c Z b b [settargetspeed linetracker__robotstate 20 17 none]
-G c Z b b [gettargetspeed linetracker__robotstate 21 16 none]
-G c Z b b [setobstacledistance linetracker__robotstate 22 17 none]
-G c Z b b [getobstacledistance linetracker__robotstate 23 16 none]
-G c Z b b [robotstate__setactionN linetracker 18 7 none]
-G c Z b b [robotstate__setactionP linetracker 18 7 none]
-G c Z b b [robotstate__getactionN linetracker 19 7 none]
-G c Z b b [robotstate__getactionP linetracker 19 7 none]
-G c Z b b [robotstate__settargetspeedN linetracker 20 7 none]
-G c Z b b [robotstate__settargetspeedP linetracker 20 7 none]
-G c Z b b [robotstate__gettargetspeedN linetracker 21 7 none]
-G c Z b b [robotstate__gettargetspeedP linetracker 21 7 none]
-G c Z b b [robotstate__setobstacledistanceN linetracker 22 7 none]
-G c Z b b [robotstate__setobstacledistanceP linetracker 22 7 none]
-G c Z b b [robotstate__getobstacledistanceN linetracker 23 7 none]
-G c Z b b [robotstate__getobstacledistanceP linetracker 23 7 none]
+G c Z b b [setaction linetracker__robotstate 19 17 none]
+G c Z b b [getaction linetracker__robotstate 20 16 none]
+G c Z b b [settargetspeed linetracker__robotstate 21 17 none]
+G c Z b b [gettargetspeed linetracker__robotstate 22 16 none]
+G c Z b b [setobstacledistance linetracker__robotstate 23 17 none]
+G c Z b b [getobstacledistance linetracker__robotstate 24 16 none]
+G c Z b b [robotstate__setactionN linetracker 19 7 none]
+G c Z b b [robotstate__setactionP linetracker 19 7 none]
+G c Z b b [robotstate__getactionN linetracker 20 7 none]
+G c Z b b [robotstate__getactionP linetracker 20 7 none]
+G c Z b b [robotstate__settargetspeedN linetracker 21 7 none]
+G c Z b b [robotstate__settargetspeedP linetracker 21 7 none]
+G c Z b b [robotstate__gettargetspeedN linetracker 22 7 none]
+G c Z b b [robotstate__gettargetspeedP linetracker 22 7 none]
+G c Z b b [robotstate__setobstacledistanceN linetracker 23 7 none]
+G c Z b b [robotstate__setobstacledistanceP linetracker 23 7 none]
+G c Z b b [robotstate__getobstacledistanceN linetracker 24 7 none]
+G c Z b b [robotstate__getobstacledistanceP linetracker 24 7 none]
 G c Z b b [robotstateTVIP linetracker 17 4 none]
-G c Z b b [motorcontroltaskTK linetracker 57 9 none]
-G c Z b b [motorcontroltaskTKVIP linetracker 57 4 none]
-G c Z b b [linefollowingtaskTK linetracker 118 9 none]
-G c Z b b [linefollowingtaskTKVIP linetracker 118 4 none]
-G c Z b b [distancetaskTK linetracker 160 9 none]
-G c Z b b [distancetaskTKVIP linetracker 160 4 none]
-G c Z b b [displaytaskTK linetracker 204 9 none]
-G c Z b b [displaytaskTKVIP linetracker 204 4 none]
+G c Z b b [motorcontroltaskTK linetracker 60 9 none]
+G c Z b b [motorcontroltaskTKVIP linetracker 60 4 none]
+G c Z b b [linefollowingtaskTK linetracker 127 9 none]
+G c Z b b [linefollowingtaskTKVIP linetracker 127 4 none]
+G c Z b b [distancetaskTK linetracker 174 9 none]
+G c Z b b [distancetaskTKVIP linetracker 174 4 none]
+G c Z b b [displaytaskTK linetracker 230 9 none]
+G c Z b b [displaytaskTKVIP linetracker 230 4 none]
 G r c none [b linetracker 10 1 none] [set_motor_speed webots_api 11 13 none]
 G r c none [b linetracker 10 1 none] [read_light_sensor webots_api 12 12 none]
 G r c none [b linetracker 10 1 none] [read_distance_sensor webots_api 13 12 none]
 G r c none [background linetracker 8 14 none] [simulation_stopped webots_api 14 12 none]
-G r c none [motorcontroltaskTK linetracker 57 9 none] [set_motor_speed webots_api 11 13 none]
-G r c none [linefollowingtaskTK linetracker 118 9 none] [read_light_sensor webots_api 12 12 none]
-G r c none [distancetaskTK linetracker 160 9 none] [read_distance_sensor webots_api 13 12 none]
+G r c none [motorcontroltaskTK linetracker 60 9 none] [set_motor_speed webots_api 11 13 none]
+G r c none [linefollowingtaskTK linetracker 127 9 none] [read_light_sensor webots_api 12 12 none]
+G r c none [distancetaskTK linetracker 174 9 none] [read_distance_sensor webots_api 13 12 none]
 X 1 ada.ads
 16K9*Ada 20e8 18|4r6 4r25 19|4r6 4r25 5r6 5r25
 X 6 a-reatim.ads
 39K13*Real_Time 186e18 18|4w10 4r29 19|5w10 5r29
-50O9*Time<duration> 19|60r32 62r23 121r37 123r28 163r29 165r20 207r28 209r19
-55O9*Time_Span<duration> 19|61r32 122r37 164r29 208r28
-62V13*Clock{50O9} 19|60s40 121s45 163s37 207s36
-66V14*"+"{50O9} 19|113s23 155s23 199s23 250s23
-120V13*Milliseconds{55O9} 19|61s45 122s50 164s42 208s41
+50O9*Time<duration> 19|63r32 67r23 130r37 134r28 177r29 179r20 233r28 236r19
+55O9*Time_Span<duration> 19|65r32 132r37 178r29 235r28
+62V13*Clock{50O9} 19|64s9 131s9 177s37 233s36
+66V14*"+"{50O9} 19|121s23 168s23 224s23 278s23
+120V13*Milliseconds{55O9} 19|66s9 133s9 178s42 235s41
 X 13 a-textio.ads
 58K13*Text_IO 785e16 19|4w10 4r29
-515U14*Put 19|214s10 221s10 228s10
-565U14*Put_Line 19|215s10 222s10 231s16 234s16 237s16 240s16
+515U14*Put 19|241s10 248s10 255s10
+565U14*Put_Line 19|242s10 249s10 258s16 261s16 264s16 267s16
 X 18 linetracker.ads
-7K9*LineTracker 11l5 11e16 19|10b14 261l5 261t16
-8U14*Background 19|255b14 260l8 260t18
+7K9*LineTracker 11l5 11e16 19|10b14 289l5 289t16
+8U14*Background 19|283b14 288l8 288t18
 X 19 linetracker.adb
-12E9 ActionID 13e40 18r40 19r33 28r26 31r40 35r33 65r23 226r19
-13n7 TurnLeft{12E9} 104r18 152r35 230r18
-13n17 TurnRight{12E9} 107r18 149r35 233r18
-13n28 MoveForward{12E9} 28r38 101r18 146r35 236r18
-15i4 MaxSpeed{integer} 26r37 178r20 184r62 185r31 186r23 187r35 188r24
-17w14 RobotState 30b19 55l8 55t18 63r34 65r35 97r27 98r26 146r13 149r13 152r13
-. 198r10 212r36 219r39 226r31
-18U17 SetAction 18>28 31b17 34l11 34t20 146s24 149s24 152s24
-18e28 NewAction{12E9} 31b28 33r27
-19V16 GetAction{12E9} 35b16 38l11 38t20 65s46 97s38 226s42
-20U17 SetTargetSpeed 20>33 39b17 42l11 42t25 198s21
-20i33 NewSpeed{integer} 39b33 41r25
-21V16 GetTargetSpeed{integer} 43b16 46l11 46t25 63s45 98s37 212s47
-22U17 SetObstacleDistance 22>38 47b17 50l11 50t30
-22i38 NewDist{integer} 47b38 49r30
-23V16 GetObstacleDistance{integer} 51b16 54l11 54t30 219s50
-26i7 TargetSpeed{integer} 41r10 45r17
-27i7 ObstacleDistance=47:7{integer} 49r10 53r17
-28e7 CurrentAction{12E9} 33r10 37r17
-57t9 MotorControlTask 59b14 116l8 116t24
-60o7 StartTime{6|50O9} 94r15
-61o7 Period{6|55O9} 113r25
-62o7 Next{6|50O9} 94m7 113m10 113r18 114r22
-63i7 ForwardSpeed{integer} 76r21 76r35 81r22 81r37 98m10
-64i7 TurnSpeed{integer} 86r22 86r33 91r21 91r33
-65e7 CurrentAction{12E9} 97m10 100r15
-67U17 SetMotors 67b17 67>28 67>49 72l11 72t20 76s10 81s10 86s10 91s10
-67i28 Left{integer} 69r38
-67i49 Right{integer} 70r39
-74U17 MoveForwards 74b17 77l11 77t23 102s16
-79U17 MoveBackwards 79b17 82l11 82t24
-84U17 TurnLeft 84b17 87l11 87t19 105s16
-89U17 TurnRight 89b17 92l11 92t20 108s16
-118t9 LineFollowingTask 120b14 158l8 158t25
-121o7 StartTime{6|50O9} 138r15
-122o7 Period{6|55O9} 155r25
-123o7 Next{6|50O9} 138m7 155m10 155r18 156r22
-124i7 LightThreshold{integer} 131r28
-125b7 LeftSensorOnLine{boolean} 141m10 147r21
-126b7 MiddleSensorOnLine{boolean} 142m10 144r14
-127b7 RightSensorOnLine{boolean} 143m10 150r21
-129V16 IsSensorValueOnLine{boolean} 129b16 129>37 136l11 136t30 141s30 142s32
-. 143s31
-129i37 SensorValue{integer} 131r14
-160t9 DistanceTask 162b14 202l8 202t20
-163o7 StartTime{6|50O9} 195r15
-164o7 Period{6|55O9} 199r25
-165o7 Next{6|50O9} 195m7 199m10 199r18 200r22
-166i7 Distance{integer} 197m10 198r54
-167i7 TargetDist{integer} 175r22
-169V16 CalcTargetSpeed{integer} 169b16 169>33 193l11 193t26 198s37
-169i33 Distance{integer} 175r35 177r14
-170i10 TargetSpeed{integer} 183m13 185r17 187r20 190r23
-171f10 Smoothing{float} 184r43
-172i10 Margin{integer} 180r28 180r51
-173i10 DistDiff{integer} 175m10 180r17 180r39 184r31
-204t9 DisplayTask 206b14 253l8 253t19
-207o7 StartTime{6|50O9} 244r15
-208o7 Period{6|55O9} 250r25
-209o7 Next{6|50O9} 244m7 250m10 250r18 251r22
-211U17 PrintSpeed 211b17 216l11 216t21 246s10
-212i10 CurrentSpeed{integer} 215r35
-218U17 PrintObstacleDistance 218b17 223l11 223t32 247s10
-219i10 CurrentDistance{integer} 222r35
-225U17 PrintCurrentAction 225b17 242l11 242t29 248s10
-226e10 Action{12E9} 229r15
+12E9 ActionID 13e40 19r40 20r33 30r26 34r40 38r33 71r23 253r19
+13n7 TurnLeft{12E9} 112r18 165r35 257r18
+13n17 TurnRight{12E9} 115r18 162r35 260r18
+13n28 MoveForward{12E9} 30r38 109r18 159r35 263r18
+15i4 MaxSpeed{integer} 28r9 198r20 207r62 208r31 209r23 210r35 211r24
+17w14 RobotState 32b19 58l8 58t18 68r34 72r9 105r27 106r26 159r13 162r13
+. 165r13 222r10 223r10 239r36 246r39 253r31
+19U17 SetAction 19>28 34b17 37l11 37t20 159s24 162s24 165s24
+19e28 NewAction{12E9} 34b28 36r27
+20V16 GetAction{12E9} 38b16 41l11 41t20 72s20 105s38 253s42
+21U17 SetTargetSpeed 21>33 42b17 45l11 45t25 223s21
+21i33 NewSpeed{integer} 42b33 44r25
+22V16 GetTargetSpeed{integer} 46b16 49l11 49t25 68s45 106s37 239s47
+23U17 SetObstacleDistance 23>38 50b17 53l11 53t30 222s21
+23i38 NewDist{integer} 50b38 52r30
+24V16 GetObstacleDistance{integer} 54b16 57l11 57t30 246s50
+27i7 TargetSpeed{integer} 44r10 48r17
+29i7 ObstacleDistance=54:7{integer} 52r10 56r17
+30e7 CurrentAction{12E9} 36r10 40r17
+60t9 MotorControlTask 62b14 124l8 124t24
+63o7 StartTime{6|50O9} 102r15
+65o7 Period{6|55O9} 121r25
+67o7 Next{6|50O9} 102m7 121m10 121r18 122r22
+68i7 ForwardSpeed{integer} 84r21 84r35 89r22 89r37 106m10
+69i7 TurnSpeed{integer} 94r22 94r33 99r21 99r33
+71e7 CurrentAction{12E9} 105m10 108r15
+75U17 SetMotors 75b17 75>28 75>49 80l11 80t20 84s10 89s10 94s10 99s10
+75i28 Left{integer} 77r38
+75i49 Right{integer} 78r39
+82U17 MoveForwards 82b17 85l11 85t23 110s16
+87U17 MoveBackwards 87b17 90l11 90t24
+92U17 TurnLeft 92b17 95l11 95t19 113s16
+97U17 TurnRight 97b17 100l11 100t20 116s16
+127t9 LineFollowingTask 129b14 171l8 171t25
+130o7 StartTime{6|50O9} 150r15
+132o7 Period{6|55O9} 168r25
+134o7 Next{6|50O9} 150m7 168m10 168r18 169r22
+135i7 LightThreshold{integer} 143r28
+136b7 LeftSensorOnLine{boolean} 153m10 160r21
+137b7 MiddleSensorOnLine{boolean} 154m10 157r14
+138b7 RightSensorOnLine{boolean} 155m10 163r21
+141V16 IsSensorValueOnLine{boolean} 141b16 141>37 148l11 148t30 153s30 154s32
+. 155s31
+141i37 SensorValue{integer} 143r14
+174t9 DistanceTask 176b14 227l8 227t20
+177o7 StartTime{6|50O9} 218r15
+178o7 Period{6|55O9} 224r25
+179o7 Next{6|50O9} 218m7 224m10 224r18 225r22
+180i7 Distance{integer} 221m10 222r42 223r54
+182i7 TargetDist{integer} 194r22
+185V16 CalcTargetSpeed{integer} 185b16 185>33 216l11 216t26 223s37
+185i33 Distance{integer} 194r35 197r14
+186i10 TargetSpeed{integer} 206m13 208r17 210r20 213r23
+187f10 Smoothing{float} 207r43
+189i10 Margin{integer} 201r28 201r51
+191i10 DistDiff{integer} 194m10 201r17 201r39 207r31
+230t9 DisplayTask 232b14 281l8 281t19
+233o7 StartTime{6|50O9} 271r15
+235o7 Period{6|55O9} 278r25
+236o7 Next{6|50O9} 271m7 278m10 278r18 279r22
+238U17 PrintSpeed 238b17 243l11 243t21 274s10
+239i10 CurrentSpeed{integer} 242r35
+245U17 PrintObstacleDistance 245b17 250l11 250t32 275s10
+246i10 CurrentDistance{integer} 249r35
+252U17 PrintCurrentAction 252b17 269l11 269t29 276s10
+253e10 Action{12E9} 256r15
 X 20 system.ads
 37K9*System 19|6w6 20|155e11
 X 38 s-stausa.ads
@@ -222,13 +222,13 @@ X 38 s-stausa.ads
 272U14*Output_Results 276i<c,__gnat_stack_usage_output_results>22
 X 55 webots_api.ads
 1K9*Webots_API 19|8w6 8r22 55|18e15
-8n20*LeftMotor{8E8} 19|69r27
-8n31*RightMotor{8E8} 19|70r27
-9n26*LS1{9E8} 19|141r70
-9n31*LS2{9E8} 19|142r72
-9n36*LS3{9E8} 19|143r71
-11U13*set_motor_speed 19|69s10 70s10
-12V12*read_light_sensor{integer} 19|141s51 142s53 143s52
-13V12*read_distance_sensor{integer} 19|197s22
-14V12*simulation_stopped{boolean} 19|257s17
+8n20*LeftMotor{8E8} 19|77r27
+8n31*RightMotor{8E8} 19|78r27
+9n26*LS1{9E8} 19|153r70
+9n31*LS2{9E8} 19|154r72
+9n36*LS3{9E8} 19|155r71
+11U13*set_motor_speed 19|77s10 78s10
+12V12*read_light_sensor{integer} 19|153s51 154s53 155s52
+13V12*read_distance_sensor{integer} 19|221s22
+14V12*simulation_stopped{boolean} 19|285s17
 

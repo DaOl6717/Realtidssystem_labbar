@@ -24,7 +24,7 @@ RV MAX_PROTECTED_ENTRIES=1
 RV MAX_TASKS=2
 RV MAX_ENTRY_QUEUE_LENGTH=1+
 
-U tasks%b		tasks.adb		cd874346 OO PF PK
+U tasks%b		tasks.adb		1712dc4d OO PF PK
 W ada%s			ada.ads			ada.ali
 Z ada.calendar.delays%s	a-caldel.adb		a-caldel.ali
 Z ada.exceptions%s	a-except.adb		a-except.ali
@@ -42,7 +42,7 @@ Z system.tasking.protected_objects.operations%s  s-tpobop.adb  s-tpobop.ali
 Z system.tasking.stages%s  s-tassta.adb		s-tassta.ali
 W webots_api%s		webots_api.adb		webots_api.ali  AD
 
-U tasks%s		tasks.ads		e3916b1a EE OO PK
+U tasks%s		tasks.ads		a80418c5 EE NE OO PK
 W ada%s			ada.ads			ada.ali
 W ada.real_time%s	a-reatim.adb		a-reatim.ali
 Z ada.strings.text_buffers%s  a-sttebu.adb	a-sttebu.ali
@@ -94,124 +94,118 @@ D s-tassta.ads		20250523110204 cca55c94 system.tasking.stages%s
 D s-traent.ads		20250523110204 c81cbf8c system.traceback_entries%s
 D s-unstyp.ads		20250523110204 fa2a7f59 system.unsigned_types%s
 D s-wchcon.ads		20250523110204 d9032363 system.wch_con%s
-D tasks.ads		20261120115409 328718e7 tasks%s
-D tasks.adb		20261125115920 e15e1710 tasks%b
+D tasks.ads		20261125213234 79126b38 tasks%s
+D tasks.adb		20261125213156 705efbc4 tasks%b
 D webots_api.ads	20261124105238 ef8f139d webots_api%s
 G a e
 G c b b b [b tasks 10 1 none]
 G c Z s b [background tasks 5 14 none]
-G c Z b b [wait tasks__event 30 13 none]
-G c Z b b [signal tasks__event 31 17 none]
-G c Z b b [event__signalN tasks 31 7 none]
-G c Z b b [event__signalP tasks 31 7 none]
-G c Z b b [eventTVDI tasks 28 4 none]
-G c Z b b [eventTVDF tasks 28 4 none]
-G c Z b b [eventTVIP tasks 28 4 none]
-G c Z b b [P2bIP tasks 30 7 none]
-G c Z b b [eventdispatchertaskTK tasks 54 9 none]
-G c Z b b [eventdispatchertaskTKVIP tasks 54 4 none]
-G c Z b b [motorcontroltaskTK tasks 162 9 none]
-G c Z b b [motorcontroltaskTKVIP tasks 162 4 none]
+G c Z b b [wait tasks__event 26 13 none]
+G c Z b b [signal tasks__event 27 17 none]
+G c Z b b [event__signalN tasks 27 7 none]
+G c Z b b [event__signalP tasks 27 7 none]
+G c Z b b [eventTVDI tasks 24 4 none]
+G c Z b b [eventTVDF tasks 24 4 none]
+G c Z b b [eventTVIP tasks 24 4 none]
+G c Z b b [P2bIP tasks 26 7 none]
+G c Z b b [eventdispatchertaskTK tasks 53 9 none]
+G c Z b b [eventdispatchertaskTKVIP tasks 53 4 none]
+G c Z b b [motorcontroltaskTK tasks 168 9 none]
+G c Z b b [motorcontroltaskTKVIP tasks 168 4 none]
 G r c none [b tasks 10 1 none] [button_pressed webots_api 15 12 none]
 G r c none [b tasks 10 1 none] [read_light_sensor webots_api 12 12 none]
 G r c none [b tasks 10 1 none] [set_motor_speed webots_api 11 13 none]
 G r c none [b tasks 10 1 none] [simulation_stopped webots_api 14 12 none]
 G r c none [background tasks 5 14 none] [simulation_stopped webots_api 14 12 none]
-G r c none [eventdispatchertaskTK tasks 54 9 none] [button_pressed webots_api 15 12 none]
-G r c none [eventdispatchertaskTK tasks 54 9 none] [read_light_sensor webots_api 12 12 none]
-G r c none [motorcontroltaskTK tasks 162 9 none] [set_motor_speed webots_api 11 13 none]
-G r c none [motorcontroltaskTK tasks 162 9 none] [simulation_stopped webots_api 14 12 none]
+G r c none [eventdispatchertaskTK tasks 53 9 none] [button_pressed webots_api 15 12 none]
+G r c none [eventdispatchertaskTK tasks 53 9 none] [read_light_sensor webots_api 12 12 none]
+G r c none [motorcontroltaskTK tasks 168 9 none] [set_motor_speed webots_api 11 13 none]
+G r c none [motorcontroltaskTK tasks 168 9 none] [simulation_stopped webots_api 14 12 none]
 X 1 ada.ads
 16K9*Ada 20e8 48|1r6 1r25 49|4r6 4r25 5r6 5r25
 X 7 a-reatim.ads
 39K13*Real_Time 186e18 48|1w10 1r29 49|5w10 5r29
-50O9*Time<duration> 48|10r21
-55O9*Time_Span<duration> 48|9r21
-62V13*Clock{50O9} 48|10s29
-120V13*Milliseconds{55O9} 48|9s34
 X 13 a-textio.ads
 58K13*Text_IO 785e16 49|4w10 4r29
-515U14*Put 49|75s13 76s13 96s13 97s13
-565U14*Put_Line 49|77s13 98s13 150s7 233s16 259s16
+515U14*Put 49|80s13 81s13 101s13 102s13
+565U14*Put_Line 49|82s13 103s13 155s7 240s16 266s16
 X 18 system.ads
-37K9*System 155e11 49|6w6 35r24 55r24
+37K9*System 155e11 49|6w6 33r12 56r12 171r12
 108I12*Any_Priority{integer}
-109I12*Priority{108I12} 49|35r31 55r31
+109I12*Priority{108I12} 49|33r19 56r19 171r19
 X 34 s-stausa.ads
 207U14*Initialize 208i<c,__gnat_stack_usage_initialize>22
 272U14*Output_Results 276i<c,__gnat_stack_usage_output_results>22
 X 48 tasks.ads
-4K9*Tasks 9E4 14l5 14e10 49|10b14 281l5 281t10
-5U14*Background 49|273b14 279l8 279t18
-9o4 Period_Display{7|55O9}
-10o4 Time_Zero{7|50O9}
+4K9*Tasks 8l5 8e10 49|10b14 289l5 289t10
+5U14*Background 49|281b14 287l8 287t18
 X 49 tasks.adb
-16E9 EventID 26e18 30r28 31r33 36r19 41r28 47r33 67r26 171r24 205r37
-17n7 RightPressed{16E9} 84r36 220r18
-18n7 RightReleased{16E9} 105r36
-19n7 LeftPressed{16E9} 81r36 216r18
-20n7 LeftReleased{16E9} 102r36
-21n7 UpPressed{16E9} 87r36 208r18
-22n7 UpReleased{16E9} 108r36
-23n7 DownPressed{16E9} 90r36 212r18
-24n7 DownReleased{16E9} 111r36
-25n7 EnteredLine{16E9} 143r27 232r18
-26n7 ExitedLine{16E9} 140r27 258r18
-28w14 Event 40b19 52l8 52t13 92r13 113r13 140r13 143r13 230r10
-30Y13 Wait 30<19 41b13 46l11 46t15 230s16
-30e19 id{16E9} 44m10
-31U17 Signal 31>25 47b17 51l11 51t17 92s19 113s19 140s19 143s19
-31e25 id{16E9} 47b25 49r23
-36e7 currentID{16E9} 44r16 49r10
-37b7 signalled{boolean} 41r42 45r10 50r10
-41e19 id{16E9}
-54t9 EventDispatcherTask 57b14 160l8 160t27
-58A12 KeysPressed(boolean)<integer> 59r24
-59a7 keys{58A12} 69r21 116m10
-61i7 lightThreshold{integer} 121r28
-62b7 isOnLine{boolean} 134r24 146m10
-64U17 NotifyKeyChanges 64b17 64>35 64>54 117l11 117t27 152s10 153s10 154s10
-. 155s10
-64e35 button{50|10E8} 71r28 76r34 79r18 97r34 100r18
-64i54 arrayIndex{integer} 69r27 116r16
-65b10 prevVal{boolean} 69m10 74r32 95r36
-66b10 newVal{boolean} 70m10 74r14 95r17 116r31
-67e10 eventToSignal{16E9} 81m19 84m19 87m19 90m19 93r16 102m19 105m19 108m19
-. 111m19 114r16
-119V16 IsSensorValueOnLine{boolean} 119b16 119>37 126l11 126t30 135s23
-119i37 sensorValue{integer} 121r14
-128U17 NotifyLineChanges 128b17 147l11 147t28 156s10
-129b10 prevOnLine{boolean} 134m10 138r14 141r17
-130b10 newOnLine{boolean} 135m10 138r36 141r40 146r22
-131i10 sensorVal{integer} 133m10 135r44
-162t9 MotorControlTask 170b14 270l8 270t24
-171e7 RecentEvent{16E9} 230m22 231r15 265r31
-172i7 MaxSpeed{integer} 187r21 187r31 192r22 192r33 197r22 197r32 202r21
-. 202r32
-173b7 IsCrossingLine{boolean} 234m16 260m16 264r20
-174i7 LastMove{integer} 210m16 214m16 218m16 222m16 236r21
-178U17 SetMotors 178b17 178>28 178>49 183l11 183t20 187s10 192s10 197s10
-. 202s10 225s16 261s16
-178i28 left{integer} 180r38
-178i49 right{integer} 181r39
-185U17 MoveForwards 185b17 188l11 188t23 209s16 243s22
-190U17 MoveBackwards 190b17 193l11 193t24 213s16 239s22
-195U17 TurnLeft 195b17 198l11 198t19 217s16 251s22
-200U17 TurnRight 200b17 203l11 203t20 221s16 247s22
-205U17 OnKeyPress 205b17 205>29 227l11 227t21 265s19
-205e29 event{16E9} 207r15
+12E9 EventID 22e18 26r28 27r33 35r19 40r28 46r33 71r26 175r24 209r37
+13n7 RightPressed{12E9} 89r36 224r18
+14n7 RightReleased{12E9} 110r36
+15n7 LeftPressed{12E9} 86r36 220r18
+16n7 LeftReleased{12E9} 107r36
+17n7 UpPressed{12E9} 92r36 212r18
+18n7 UpReleased{12E9} 113r36
+19n7 DownPressed{12E9} 95r36 216r18
+20n7 DownReleased{12E9} 116r36
+21n7 EnteredLine{12E9} 148r27 239r18
+22n7 ExitedLine{12E9} 145r27 265r18
+24w14 Event 39b19 51l8 51t13 97r13 118r13 145r13 148r13 234r10
+26Y13 Wait 26<19 40b13 45l11 45t15 234s16
+26e19 id{12E9} 43m10
+27U17 Signal 27>25 46b17 50l11 50t17 97s19 118s19 145s19 148s19
+27e25 id{12E9} 46b25 48r23
+35e7 currentID{12E9} 43r16 48r10
+36b7 signalled{boolean} 40r42 44r10 49r10
+40e19 id{12E9}
+53t9 EventDispatcherTask 59b14 166l8 166t27
+60A12 KeysPressed(boolean)<integer> 61r24
+61a7 keys{60A12} 73r21 121m10
+64i7 lightThreshold{integer} 126r28
+66b7 isOnLine{boolean} 140r24 151m10
+68U17 NotifyKeyChanges 68b17 68>35 68>54 122l11 122t27 158s10 159s10 160s10
+. 161s10
+68e35 button{50|10E8} 76r15 81r34 84r18 102r34 105r18
+68i54 arrayIndex{integer} 73r27 121r16
+69b10 prevVal{boolean} 73m10 79r32 100r36
+70b10 newVal{boolean} 74m10 79r14 100r17 121r31
+71e10 eventToSignal{12E9} 86m19 89m19 92m19 95m19 98r16 107m19 110m19 113m19
+. 116m19 119r16
+124V16 IsSensorValueOnLine{boolean} 124b16 124>37 131l11 131t30 141s23
+124i37 sensorValue{integer} 126r14
+134U17 NotifyLineChanges 134b17 152l11 152t28 162s10
+135b10 prevOnLine{boolean} 140m10 143r14 146r17
+136b10 newOnLine{boolean} 141m10 143r36 146r40 151r22
+137i10 sensorVal{integer} 139m10 141r44
+168t9 MotorControlTask 174b14 278l8 278t24
+175e7 RecentEvent{12E9} 235m13 236r15 273r31
+176i7 MaxSpeed{integer} 191r21 191r31 196r22 196r33 201r22 201r32 206r21
+. 206r32
+177b7 IsCrossingLine{boolean} 241m16 267m16 272r20
+179i7 LastMove{integer} 214m16 218m16 222m16 226m16 243r21
+182U17 SetMotors 182b17 182>28 182>49 187l11 187t20 191s10 196s10 201s10
+. 206s10 229s16 268s16
+182i28 left{integer} 184r38
+182i49 right{integer} 185r39
+189U17 MoveForwards 189b17 192l11 192t23 213s16 250s22
+194U17 MoveBackwards 194b17 197l11 197t24 217s16 246s22
+199U17 TurnLeft 199b17 202l11 202t19 221s16 258s22
+204U17 TurnRight 204b17 207l11 207t20 225s16 254s22
+209U17 OnKeyPress 209b17 209>29 231l11 231t21 273s19
+209e29 event{12E9} 211r15
 X 50 webots_api.ads
 1K9*Webots_API 49|8w6 8r22 50|18e15
-8n20*LeftMotor{8E8} 49|180r27
-8n31*RightMotor{8E8} 49|181r27
-9n31*LS2{9E8} 49|133r42
-10E8*ButtonID 49|64r44 76r18 97r18 50|10e67
-10n21*UpButton{10E8} 49|86r21 107r21 154r28
-10n31*DownButton{10E8} 49|89r21 110r21 155r28
-10n43*LeftButton{10E8} 49|80r21 101r21 152r28
-10n55*RightButton{10E8} 49|83r21 104r21 153r28
-11U13*set_motor_speed 49|180s10 181s10
-12V12*read_light_sensor{integer} 49|133s23
-14V12*simulation_stopped{boolean} 49|268s20 276s17
-15V12*button_pressed{boolean} 49|71s12
+8n20*LeftMotor{8E8} 49|184r27
+8n31*RightMotor{8E8} 49|185r27
+9n31*LS2{9E8} 49|139r42
+10E8*ButtonID 49|68r44 81r18 102r18 50|10e67
+10n21*UpButton{10E8} 49|91r21 112r21 160r28
+10n31*DownButton{10E8} 49|94r21 115r21 161r28
+10n43*LeftButton{10E8} 49|85r21 106r21 158r28
+10n55*RightButton{10E8} 49|88r21 109r21 159r28
+11U13*set_motor_speed 49|184s10 185s10
+12V12*read_light_sensor{integer} 49|139s23
+14V12*simulation_stopped{boolean} 49|276s20 284s17
+15V12*button_pressed{boolean} 49|75s12
 
