@@ -100,7 +100,7 @@ package body Tasks is
          elsif (newVal = false and prevVal = true) then
             Put (("Button "));
             Put (ButtonID'Image (button));
-            Put_Line (" RELEASED!");
+            Put_Line (" released!");
             -- ... signal keyUpEvent for that button
             case button is
                when LeftButton  =>
